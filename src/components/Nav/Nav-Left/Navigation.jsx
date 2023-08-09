@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Navigation.css";
 import logo from "../../../Images/logo.jpg";
+import ConfirmBox from "../../Useful/ConfirmationBox/ConfirmBox";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { BiSolidDashboard, BiLogoBlogger, BiBookAlt } from "react-icons/bi";
 import { HiUsers } from "react-icons/hi";
@@ -18,27 +20,31 @@ function Navigation() {
     const navigate = useNavigate();
     const [toggle, setToggle] = useState(true);
     const [showCourse, setShowCourse] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     function showCourses() {
         setShowCourse((prev) => !prev);
     }
 
-    useEffect(() => {
-        console.log(toggle);
-    }, [toggle])
-
     function handleLogout() {
-        axios
-            .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
-            .then(res => {
-                console.log(res);
-                navigate(`/`);
-            })
-            .catch(err => console.log(err));
+        // axios
+        //     .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
+        //     .then(res => {
+        //         navigate(`/`);
+        //     })
+        //     .catch(err => console.log(err));
+        navigate('/');
     }
 
     return (
         <>
+            <ConfirmBox
+                showC={showConfirm}
+                setShowC={setShowConfirm}
+                message="Logout of your account?"
+                buttonText="Logout"
+                buttonAction={handleLogout}
+            />
             <div className={toggle ? "nav-container" : "small-nav"}>
                 <div className="top-mid-nav">
                     <div className={toggle ? "top-nav" : "top-nav-small"}>
@@ -112,7 +118,7 @@ function Navigation() {
                         </button>
                     </div>
                     <div className="log-out">
-                        <button onClick={handleLogout}>
+                        <button onClick={() => setShowConfirm(true)}>
                             <RiLogoutCircleRLine className="logout-icon" />
                             {toggle && (<span>Log Out</span>)}
                         </button>
