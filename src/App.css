@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif;
+  padding: 0;
+  margin: 1px;
+  /* overflow: hidden; */
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.left-content {
+  width: auto;
+  margin-right: 1%;
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.active {
+  color: red;
+}

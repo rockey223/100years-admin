@@ -1,0 +1,152 @@
+.top-conatiner {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 52px 0 16px;
+}
+
+.title-top {
+    color: #252C32;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: -0.792px;
+}
+
+.search-filter-export {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.search-filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-container {
+    margin-right: 12px;
+}
+
+.filter-button {
+    display: flex;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 20px;
+    width: 70px;
+
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #D0D5DD);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+
+    color: var(--gray-700, #344054);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.filter-button svg {
+    height: 20px;
+    width: 20px;
+}
+
+.export-add {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.export-button {
+    height: 20px;
+    width: 73px;
+    display: flex;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #D0D5DD);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+
+    color: var(--gray-700, #344054);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.export-button svg {
+    height: 20px;
+    width: 20px;
+}
+
+.add-button {
+    height: 40px;
+    width: 88px;
+    border-radius: 6px;
+    background-color: #2DAA50;
+    border: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--white, #FFF);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.add-button svg {
+    height: 20px;
+    width: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.group-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    height: 20px;
+    width: 66px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #D0D5DD);
+    background: var(--white, #FFF);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+
+    color: var(--gray-700, #344054);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-right: 24px;
+}
+
+.group-button:hover {
+    border: 1px solid #01ACF1;
+    background-color: #01ACF1;
+    color: white;
+}
+
+.group-button-active {
+    border: 1px solid #01ACF1;
+    background-color: #01ACF1;
+    color: white;
+}

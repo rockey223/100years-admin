@@ -1,0 +1,220 @@
+.addblog-background {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+    transition: 1s;
+}
+
+.addblog-container {
+    background-color: #EAECF0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    height: 95%;
+    width: auto;
+    overflow-y: scroll;
+}
+
+.close-btn {
+    border: none;
+    background-color: #EAECF0;
+    position: relative;
+    left: 95%;
+    top: 10px;
+}
+
+.close-btn svg {
+    color: #BE4217;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.addblog-content {
+    display: flex;
+    flex-direction: column;
+    margin: 32px 40px;
+}
+
+.addblog-content label {
+    color: #000;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.addblog-content input {
+    margin-top: 12px;
+    margin-bottom: 32px;
+    background-color: #EAECF0;
+
+    color: #3F3F46;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.file-input {
+    border: 1px dashed rgba(93, 96, 109, 0.40);
+    border-radius: 5px;
+}
+
+.input-left {
+    margin: 8.59px 0 8.59px 15.97px;
+}
+
+.left-title {
+    color: #667085;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28.8px;
+    margin-bottom: 10px;
+}
+
+.input-border {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px dashed #3F3F46;
+    border-radius: 5px;
+
+    overflow: hidden;
+    width: 220px;
+}
+
+.input-border input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    border: none;
+    border-radius: none;
+    top: -11px;
+    left: 0px;
+    opacity: 0;
+    padding: 0;
+    color: transparent;
+    cursor: pointer;
+}
+
+.input-border svg {
+    color: #667085;
+    position: relative;
+    width: 70px;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.input-text {
+    color: #667085;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28.8px;
+}
+
+.input-btn {
+    color: #667085;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28.8px;
+    border-radius: 8px;
+    border: 1px solid rgba(93, 96, 109, 0.40);
+    width: 118px;
+    height: 29px;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.addblog-buttons {
+    margin-top: 23px;
+}
+
+.save-button {
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #D0D5DD);
+    background: #2DAA50;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    color: white;
+
+    width: 85px;
+    padding: 10px 16px;
+    cursor: pointer;
+    margin-right: 24px;
+}
+
+.cancel-button {
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #D0D5DD);
+    background: rgba(225, 47, 36, 0.90);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    color: white;
+
+    width: 85px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+/*=============================== New CSS =====================*/
+
+.addblog-content textarea {
+    margin: 12px 0 32px 0;
+    background-color: #EAECF0;
+}
+
+.subheading-add {
+    margin-bottom: 30.56px;
+}
+
+.subheading-add button {
+    width: 98px;
+    height: 39px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.subheading-add button:hover {
+    background-color: black;
+    color: #EAECF0;
+}
+
+.blog-subheading-section button {
+    background-color: #EAECF0;
+    margin-left: 20px;
+    border: none;
+}
+
+.subheading-label {
+    display: flex;
+    align-items: center;
+}
+
+.blog-subheading-section svg {
+    color: red;
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+    transition: 1s;
+    border: 1px solid #EAECF0;
+    border-radius: 50%;
+}
+
+.blog-subheading-section svg:hover {
+    border: 1px solid red;
+    border-radius: 50%;
+}

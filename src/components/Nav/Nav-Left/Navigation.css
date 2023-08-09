@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    text-align: left;
+    height: 700px;
+    width: 280px;
+    justify-content: space-between;
+    transition: 1s;
+}
+
+.top-mid-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.top-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 43px 53px 40px;
+}
+
+.top-nav-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 43px 53px 40px;
+}
+
+.small-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.hamburger button {
+    background-color: white;
+    border: none;
+}
+
+.hamburger-icon {
+    color: #898989;
+    width: 24px;
+    height: 23.836px;
+}
+
+.hamburger-icon:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.mid-nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 46px;
+}
+
+.mid-nav-small {
+    display: flex;
+    flex-direction: column;
+    padding-left: 34px;
+}
+
+.nav-link {
+    margin-bottom: 24px;
+}
+
+.nav-link a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+
+    color: rgba(0, 0, 0, 0.40);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.nav-link svg {
+    padding-right: 8px;
+    height: 30px;
+    width: 30px;
+}
+
+.active {
+    color: #F66E24 !important;
+}
+
+.active svg {
+    color: #01ACF1;
+}
+
+.course-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.course-right {
+    display: flex;
+    justify-content: end;
+}
+
+
+.bot-nav {
+    padding-left: 45px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+}
+
+.bot-nav-small {
+    padding-left: 34px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-end;
+}
+
+.bot-nav-small button {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border: none;
+    color: rgba(0, 0, 0, 0.40);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    align-self: center;
+}
+
+.bot-nav button {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border: none;
+    color: rgba(0, 0, 0, 0.40);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    align-self: center;
+}
+
+.settings {
+    margin-bottom: 18px;
+}
+
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    color: #00000066;
+    padding-right: 12px;
+}
+
+.log-out button {
+    cursor: pointer;
+}
+
+.log-out button:hover {
+    color: #F66E24;
+
+    .logout-icon {
+        color: #F66E24;
+    }
+}
+
+.logout-icon {
+    width: 24px;
+    height: 24px;
+    color: #00000066;
+    padding-right: 12px;
+}
+
+
+
+
+/*------------------Toogle Nav-----------------------*/
+
+.small-nav {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    text-align: left;
+    height: 700px;
+    width: 100px;
+    justify-content: space-between;
+    transition: 1s;
+}
