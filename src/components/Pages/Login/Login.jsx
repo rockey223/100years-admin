@@ -25,21 +25,21 @@ function Login() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(login);
-        axios
-            .post(`http://localhost:4000/api/adminLogin`, login, { withCredentials: true })
-            .then(res => {
-                if (res.data.success === true) {
-                    // setIsLoggedIn(() => { return true; });
-                    navigate(`/admin`);
-                    setLogin({
-                        adminEmail: "",
-                        adminPassword: "",
-                    })
-                }
-                console.log(res)
-            })
-            .catch(err => console.log(err));
+        // axios
+        //     .post(`http://localhost:4000/api/adminLogin`, login, { withCredentials: true })
+        //     .then(res => {
+        //         if (res.data.success === true) {
+        //             // setIsLoggedIn(() => { return true; });
+        //             navigate(`/admin`);
+        //             setLogin({
+        //                 adminEmail: "",
+        //                 adminPassword: "",
+        //             })
+        //         }
+        //         console.log(res)
+        //     })
+        //     .catch(err => console.log(err));
+        navigate(`/admin`);
     }
 
 
