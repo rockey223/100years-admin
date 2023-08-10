@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css"
 import { InputBar } from "../../Tools/Input/Input";
-import axios from "axios";
+import logo from "../../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -49,8 +49,9 @@ function Login() {
                 <div className="login-container">
                     <div className="login-content">
                         <div className="login-title">
+                            <div className="logo-img"><img alt="Logo" src={logo} height={"107px"} width={"114.8px"} /></div>
                             <div className="title-1">Welcome</div>
-                            <div className="title-2">Please login to Admin Dashboard</div>
+                            <div className="title-2">Please Login To Admin Dashboard</div>
                         </div>
                         <div className="form-content">
                             <form>
