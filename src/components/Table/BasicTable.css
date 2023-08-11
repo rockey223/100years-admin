@@ -111,6 +111,8 @@
 .action-btn {
     display: flex;
     padding-top: 20px;
+    height: 37.6px;
+    width: 136.29;
 }
 
 .action-btn button {

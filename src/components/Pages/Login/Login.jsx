@@ -49,7 +49,6 @@ function Login() {
                 <div className="login-container">
                     <div className="login-content">
                         <div className="login-title">
-                            <div className="logo-img"><img alt="Logo" src={logo} height={"107px"} width={"114.8px"} /></div>
                             <div className="title-1">Welcome</div>
                             <div className="title-2">Please Login To Admin Dashboard</div>
                         </div>
@@ -84,6 +83,7 @@ function Login() {
                         </div>
                     </div>
                 </div>
+                <div className="logo-img"><img alt="Logo" src={logo} height={"107px"} width={"114.8px"} /></div>
                 <div className="bottom-wave">
                     <svg width="100%" height="154" viewBox="0 0 1280 154" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M0 0L53 5.78613C107 11.5723 213 23.1445 320 42.7283C427 62.7572 533 91.2428 640 97.0289C747 102.815 853 85.4566 960 80.1156C1067 74.3295 1173 80.1156 1227 82.7861L1280 85.4566V154H1227C1173 154 1067 154 960 154C853 154 747 154 640 154C533 154 427 154 320 154C213 154 107 154 53 154H0V0Z" fill="#20DF7F" fillOpacity="0.09" />

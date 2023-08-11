@@ -25,3 +25,7 @@
     align-items: center;
     gap: 16px;
 }
+
+.user-container td {
+    padding: 5px 24px;
+}

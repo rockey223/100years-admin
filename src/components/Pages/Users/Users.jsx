@@ -47,7 +47,8 @@ function Users() {
                 <Table
                     COLUMNS={COLUMNS}
                     DATA={DATA}
-                    dotPanel={true}
+                    // dotPanel={true}
+                    ActionBtn={true}
                 />
             </div>
         </>

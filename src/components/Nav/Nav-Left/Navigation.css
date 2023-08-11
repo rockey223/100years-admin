@@ -13,7 +13,7 @@
     height: 700px;
     width: 280px;
     justify-content: space-between;
-    transition: 1s;
+    transition: 0.3s ease;
 }
 
 .top-mid-nav {
@@ -202,5 +202,5 @@
     height: 700px;
     width: 100px;
     justify-content: space-between;
-    transition: 1s;
+    transition: 0.3s ease;
 }
