@@ -169,6 +169,14 @@
     padding-right: 12px;
 }
 
+.settings button:hover {
+    color: #F66E24;
+
+    .settings-icon {
+        color: #F66E24;
+    }
+}
+
 .log-out button {
     cursor: pointer;
 }

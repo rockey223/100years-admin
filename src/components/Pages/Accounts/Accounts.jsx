@@ -42,6 +42,7 @@ function Accounts() {
                     title="Accounts"
                     add={true}
                     group={true}
+                    filters={["Level1", "Level2", "Instructor"]}
                 />
                 <Table
                     COLUMNS={COLUMNS}

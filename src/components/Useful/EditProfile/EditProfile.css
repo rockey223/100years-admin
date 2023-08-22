@@ -1,0 +1,73 @@
+.editProfile-back {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.editProfile-container {
+    background-color: #F8F8F8;
+    border-radius: 8px;
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+}
+
+.epclose-btn {
+    border: none;
+    background-color: #F8F8F8;
+    position: relative;
+    left: 95%;
+    top: 10px;
+}
+
+.epclose-btn svg {
+    color: #BE4217;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.editProfile-content {
+    margin: 52px 97px;
+}
+
+.editProfile-content label {
+    color: #3F3F46;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.12px;
+
+}
+
+.editprofile-label {
+    margin-bottom: 22px;
+}
+
+.editProfile-content input {
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFF;
+    outline: none;
+    margin-bottom: 22px;
+}
+
+.editprofile-submit {
+    color: white;
+    width: 186px;
+    height: 50px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 40px;
+    background: var(--blue, #01ACF1);
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06), 0px 0px 4px 0px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+}

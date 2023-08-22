@@ -39,15 +39,13 @@ function Top(props) {
                 </div>
                 {props.group ?
                     <div className="filter-group">
-                        <div className="group-button">
-                            Level 1
-                        </div>
-                        <div className="group-button">
-                            Level 2
-                        </div>
-                        <div className="group-button">
-                            Instructor
-                        </div>
+                        {props.filters.map((names) => {
+                            return (
+                                <div className="group-button">
+                                    {names}
+                                </div>
+                            );
+                        })}
                     </div>
                     : ""
                 }

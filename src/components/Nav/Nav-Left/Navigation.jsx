@@ -15,12 +15,14 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { BsChevronDown } from "react-icons/bs";
 import axios from "axios";
+import EditProfile from "../../Useful/EditProfile/EditProfile";
 
 function Navigation() {
     const navigate = useNavigate();
     const [toggle, setToggle] = useState(true);
     const [showCourse, setShowCourse] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const [showEditProfile, setShowEditProfile] = useState(false);
 
     function showCourses() {
         setShowCourse((prev) => !prev);
@@ -38,6 +40,10 @@ function Navigation() {
 
     return (
         <>
+            <EditProfile
+                showEP={showEditProfile}
+                setShowEP={setShowEditProfile}
+            />
             <ConfirmBox
                 showC={showConfirm}
                 setShowC={setShowConfirm}
@@ -112,7 +118,7 @@ function Navigation() {
                 </div>
                 <div className={toggle ? "bot-nav" : "bot-nav-small"}>
                     <div className="settings">
-                        <button>
+                        <button onClick={() => setShowEditProfile(true)}>
                             <IoSettingsOutline className="settings-icon" />
                             {toggle && (<span>Settings</span>)}
                         </button>
