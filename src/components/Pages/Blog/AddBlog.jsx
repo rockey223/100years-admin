@@ -8,17 +8,18 @@ import { ImFolderUpload } from 'react-icons/im';
 function AddBlog(props) {
 
     const [subHeadingCount, setSubHeadingCount] = useState(1);
+    const [subHeadingSections, setSubHeadingSections] = useState([1]);
 
     function AddSubHeadingCount() {
-        if (subHeadingCount < 3) {
-            setSubHeadingCount(prev => prev + 1)
-        }
+        setSubHeadingCount(subHeadingCount + 1);
+        setSubHeadingSections([...subHeadingSections, subHeadingCount + 1]);
     }
 
-    function DelSubHeadingCount() {
-        if (subHeadingCount > 1) {
-            setSubHeadingCount(prev => prev - 1)
-        }
+    function DelSubHeadingCount(index) {
+        const updatedSections = subHeadingSections.filter((item, i) => item !== index);
+        setSubHeadingSections(updatedSections);
+        console.log(index);
+        console.log(subHeadingSections);
     }
 
     return (
@@ -84,13 +85,14 @@ function AddBlog(props) {
                             height="187px"
                             width="545px"
                         />
-                    </div>
-                    {Array.from({ length: subHeadingCount }).map((_, index) => (
-                        <div key={index} className="blog-subheading-section">
+                    </div>                 {/* {Array.from({ length: subHeadingCount }).map((_, index) => ( */}
+                    {subHeadingSections.map((sectionIndex, index) => (
+                        <div className="blog-subheading-section" id={`section${sectionIndex}`} key={sectionIndex}>
+
                             <div className="subheading-label">
                                 <label>Sub-Heading</label>
-                                {subHeadingCount > 1 && (
-                                    <button onClick={DelSubHeadingCount}><AiOutlineClose /></button>
+                                {subHeadingSections.length > 1 && (
+                                    <button onClick={() => DelSubHeadingCount(sectionIndex)}><AiOutlineClose /></button>
                                 )}
                             </div>
                             <InputBar
@@ -106,7 +108,9 @@ function AddBlog(props) {
                         </div>
                     ))}
                     <div className="subheading-add">
-                        <button onClick={AddSubHeadingCount}>Add Other</button>
+                        {subHeadingSections.length < 4 && (
+                            <button onClick={AddSubHeadingCount}>Add Other</button>
+                        )}
                     </div>
 
                     <div className="file-input">
