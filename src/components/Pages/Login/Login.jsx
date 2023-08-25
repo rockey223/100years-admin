@@ -11,6 +11,7 @@ function Login() {
         adminEmail: "",
         adminPassword: ""
     })
+    const api = `${process.env.REACT_APP_API}/api`;
 
 
 
@@ -26,7 +27,7 @@ function Login() {
     function handleSubmit(event) {
         event.preventDefault();
         // axios
-        //     .post(`http://localhost:4000/api/adminLogin`, login, { withCredentials: true })
+        //     .post(`${api}/adminLogin`, login, { withCredentials: true })
         //     .then(res => {
         //         if (res.data.success === true) {
         //             // setIsLoggedIn(() => { return true; });

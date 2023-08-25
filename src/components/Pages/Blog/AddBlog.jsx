@@ -86,7 +86,7 @@ function AddBlog(props) {
                             width="545px"
                         />
                     </div>                 {/* {Array.from({ length: subHeadingCount }).map((_, index) => ( */}
-                    {subHeadingSections.map((sectionIndex, index) => (
+                    {subHeadingSections.map((sectionIndex) => (
                         <div className="blog-subheading-section" id={`section${sectionIndex}`} key={sectionIndex}>
 
                             <div className="subheading-label">
@@ -108,7 +108,7 @@ function AddBlog(props) {
                         </div>
                     ))}
                     <div className="subheading-add">
-                        {subHeadingSections.length < 4 && (
+                        {subHeadingSections.length < 3 && (
                             <button onClick={AddSubHeadingCount}>Add Other</button>
                         )}
                     </div>

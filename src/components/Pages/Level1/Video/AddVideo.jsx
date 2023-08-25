@@ -6,10 +6,16 @@ import { AiOutlineClose, AiOutlineCloseCircle } from 'react-icons/ai';
 
 function AddVideo(props) {
 
-    const [count1, setCount1] = useState(1);
-    const [count2, setCount2] = useState(1);
-    const [count3, setCount3] = useState(1);
-    const [count4, setCount4] = useState(1);
+    const [subHeadingCount1, setSubHeadingCount1] = useState(1);
+    const [subHeadingSections1, setSubHeadingSections1] = useState([1]);
+    const [subHeadingCount2, setSubHeadingCount2] = useState(1);
+    const [subHeadingSections2, setSubHeadingSections2] = useState([1]);
+    const [subHeadingCount3, setSubHeadingCount3] = useState(1);
+    const [subHeadingSections3, setSubHeadingSections3] = useState([1]);
+    const [subHeadingCount4, setSubHeadingCount4] = useState(1);
+    const [subHeadingSections4, setSubHeadingSections4] = useState([1]);
+
+
 
     return (
         <div className="addVideo-back" style={props.showAV ? { display: "block" } : { display: "none" }}>
@@ -88,73 +94,90 @@ function AddVideo(props) {
                     </div>
                     <div className="addvideo-inputarea addvideo-addother">
                         <label>What You Will Get?</label>
-                        {Array.from({ length: count1 }).map((_) => (
-                            <>
+                        {subHeadingSections1.map((sectionIndex) => (
+                            <div id={`section${sectionIndex}`} key={sectionIndex}>
                                 <div className="remove-section">
-                                    {count1 > 1 && (
-                                        <button onClick={() => { if (count1 > 1) { setCount1(prev => prev - 1) } }}><AiOutlineClose /></button>
+                                    {subHeadingSections1.length > 1 && (
+                                        <button onClick={() => {
+                                            const updatedSections = subHeadingSections1.filter((item) => item !== sectionIndex);
+                                            setSubHeadingSections1(updatedSections);
+                                        }}><AiOutlineClose /></button>
                                     )}
                                 </div>
                                 <InputBar
                                     type="text"
                                 />
-                            </>
+                            </div>
                         ))}
                         <div >
                             <div>
-                                <button className="addvideo-addotherBtn" onClick={() => {
-                                    if (count1 < 3) {
-                                        setCount1(prev => prev + 1)
-                                    }
-                                }}>Add Other</button>
+                                {subHeadingSections1.length < 3 && (
+                                    <button className="addvideo-addotherBtn" onClick={() => {
+                                        setSubHeadingCount1(subHeadingCount1 + 1);
+                                        setSubHeadingSections1([...subHeadingSections1, subHeadingCount1 + 1]);
+                                    }}>Add Other</button>
+                                )}
+
                             </div>
                         </div>
                     </div>
+
                     <div className="addvideo-inputarea addvideo-addother">
-                        <label>What You Will Get?</label>
-                        {Array.from({ length: count2 }).map((_) => (
-                            <>
+                        <label>Requirements</label>
+                        {subHeadingSections2.map((sectionIndex) => (
+                            <div id={`section${sectionIndex}`} key={sectionIndex}>
                                 <div className="remove-section">
-                                    {count2 > 1 && (
-                                        <button onClick={() => { if (count2 > 1) { setCount2(prev => prev - 1) } }}><AiOutlineClose /></button>
+                                    {subHeadingSections2.length > 1 && (
+                                        <button onClick={() => {
+                                            const updatedSections = subHeadingSections2.filter((item) => item !== sectionIndex);
+                                            setSubHeadingSections2(updatedSections);
+                                        }}><AiOutlineClose /></button>
                                     )}
                                 </div>
                                 <InputBar
                                     type="text"
                                 />
-                            </>
+                            </div>
                         ))}
                         <div >
                             <div>
-                                <button className="addvideo-addotherBtn" onClick={() => {
-                                    if (count2 < 1) {
-                                        setCount2(prev => prev + 1)
-                                    }
-                                }}>Add Other</button>
+                                {subHeadingSections2.length < 3 && (
+                                    <button className="addvideo-addotherBtn" onClick={() => {
+                                        setSubHeadingCount2(subHeadingCount2 + 1);
+                                        setSubHeadingSections2([...subHeadingSections2, subHeadingCount2 + 1]);
+                                    }}>Add Other</button>
+                                )}
+
                             </div>
                         </div>
                     </div>
+
                     <div className="addvideo-inputarea addvideo-addother">
-                        <label>What You Will Get?</label>
-                        {Array.from({ length: count3 }).map((_) => (
-                            <>
+                        <label>Who is this for?</label>
+                        {subHeadingSections3.map((sectionIndex) => (
+                            <div id={`section${sectionIndex}`} key={sectionIndex}>
                                 <div className="remove-section">
-                                    {count3 > 1 && (
-                                        <button onClick={() => { if (count3 > 1) { setCount3(prev => prev - 1) } }}><AiOutlineClose /></button>
+                                    {subHeadingSections3.length > 1 && (
+                                        <button onClick={() => {
+                                            const updatedSections = subHeadingSections3.filter((item) => item !== sectionIndex);
+                                            setSubHeadingSections3(updatedSections);
+                                        }}><AiOutlineClose /></button>
                                     )}
                                 </div>
                                 <InputBar
                                     type="text"
                                 />
-                            </>
+                            </div>
                         ))}
                         <div >
                             <div>
-                                <button className="addvideo-addotherBtn" onClick={() => {
-                                    if (count3 < 3) {
-                                        setCount3(prev => prev + 1)
-                                    }
-                                }}>Add Other</button>
+                                {subHeadingSections3.length < 3 && (
+                                    <button className="addvideo-addotherBtn" onClick={() => {
+                                        setSubHeadingCount3(subHeadingCount3 + 1);
+                                        setSubHeadingSections3([...subHeadingSections3, subHeadingCount3 + 1]);
+                                    }}>Add Other</button>
+                                )}
+
                             </div>
                         </div>
                     </div>
@@ -166,25 +189,32 @@ function AddVideo(props) {
                     </div>
                     <div className="full-line"></div>
                     <div className="addvideo-inputarea addvideo-addother">
-                        <label>About this Course?</label>
-                        {Array.from({ length: count4 }).map((_) => (
-                            <>
+                        <label>About this Course</label>
+                        {subHeadingSections4.map((sectionIndex) => (
+                            <div id={`section${sectionIndex}`} key={sectionIndex}>
                                 <div className="remove-section">
-                                    {count4 > 1 && (
-                                        <button onClick={() => { if (count4 > 1) { setCount4(prev => prev - 1) } }}><AiOutlineClose /></button>
+                                    {subHeadingSections4.length > 1 && (
+                                        <button onClick={() => {
+                                            const updatedSections = subHeadingSections4.filter((item) => item !== sectionIndex);
+                                            setSubHeadingSections4(updatedSections);
+                                        }}><AiOutlineClose /></button>
                                     )}
                                 </div>
                                 <InputBar
                                     type="text"
                                 />
-                            </>
+                            </div>
                         ))}
-                        <div>
-                            <button className="addvideo-addotherBtn" onClick={() => {
-                                if (count4 < 3) {
-                                    setCount4(prev => prev + 1)
-                                }
-                            }}>Add Other</button>
+                        <div >
+                            <div>
+                                {subHeadingSections4.length < 3 && (
+                                    <button className="addvideo-addotherBtn" onClick={() => {
+                                        setSubHeadingCount4(subHeadingCount3 + 1);
+                                        setSubHeadingSections4([...subHeadingSections4, subHeadingCount4 + 1]);
+                                    }}>Add Other</button>
+                                )}
+
+                            </div>
                         </div>
                     </div>
                     <div className="full-line"></div>
