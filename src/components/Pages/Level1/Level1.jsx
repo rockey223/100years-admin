@@ -9,6 +9,7 @@ import AddPodcast from "./Podcast/AddPodcast";
 function Level1() {
 
     const [showAddVid, setShowAddVid] = useState(false)
+    const [activeCourse, setActiveCourse] = useState('Video');
 
     const COLUMNS = [
         {
@@ -45,24 +46,32 @@ function Level1() {
 
     return (
         <div className="level1-container">
-            <AddVideo
-                showAV={showAddVid}
-                setShowAV={setShowAddVid}
-            />
-            {/* <AddArticle
-                showAV={showAddVid}
-                setShowAV={setShowAddVid}
-            /> */}
-            {/* <AddPodcast
-                showAV={showAddVid}
-                setShowAV={setShowAddVid}
-            /> */}
+            {activeCourse === 'Video' ?
+                <AddVideo
+                    showAV={showAddVid}
+                    setShowAV={setShowAddVid}
+                />
+                : ""}
+            {activeCourse === 'Article' ?
+                <AddArticle
+                    showAV={showAddVid}
+                    setShowAV={setShowAddVid}
+                />
+                : ""}
+            {activeCourse === 'Podcast' ?
+                <AddPodcast
+                    showAV={showAddVid}
+                    setShowAV={setShowAddVid}
+                />
+                : ""}
             <Top
                 title="Campaign / Level 1"
                 add={true}
                 group={true}
                 filters={["Video", "Article", "Podcast", "Blog"]}
                 setAdd={setShowAddVid}
+                activeCourse={activeCourse}
+                setActiveC={setActiveCourse}
             />
             <Table
                 COLUMNS={COLUMNS}

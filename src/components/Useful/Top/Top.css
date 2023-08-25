@@ -137,6 +137,7 @@
     font-weight: 500;
     line-height: 20px;
     margin-right: 24px;
+    cursor: pointer;
 }
 
 .group-button:hover {
