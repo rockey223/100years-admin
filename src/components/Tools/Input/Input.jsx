@@ -2,7 +2,7 @@ import React from "react";
 import "./Input.css";
 import { FiSearch } from "react-icons/fi";
 
-const InputBar = ({ type, placeholder, name, height, width, handleInput }) => {
+const InputBar = ({ type, placeholder, name, value, height, width, handleInput }) => {
     return (
         <>
             <div className="input-bar">
@@ -11,6 +11,7 @@ const InputBar = ({ type, placeholder, name, height, width, handleInput }) => {
                     placeholder={placeholder}
                     style={{ height: height, width: width }}
                     name={name}
+                    value={value}
                     onChange={handleInput}
                 />
             </div>

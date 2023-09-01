@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "./AddPodcast.css";
 import { InputBar } from "../../../Tools/Input/Input";
 import { ImFolderUpload } from "react-icons/im";
 
 function AddPodcast(props) {
+
+    const [coursePodcastHeader, setCoursePodcastHeader] = useState("");
+    const [coursePodcastAbout, setCoursePodcastAbout] = useState("");
+    const [coursePodcastDuration, setCoursePodcastDuration] = useState("");
+    const [coursePodcastVideo, setCoursePodcastVideo] = useState([]);
+
+
+
     return (
         <div className="addPodcast-back" style={props.showAV ? { display: "block" } : { display: "none" }}>
             <div className="addPodcast-container">
@@ -12,15 +20,30 @@ function AddPodcast(props) {
                 <div className="addPodcast-content">
                     <div className="addPodcast-input">
                         <label>Header</label>
-                        <InputBar type="text" />
+                        <InputBar
+                            type="text"
+                            name="coursePodcastHeader"
+                            value={coursePodcastHeader}
+                            handleInput={(event) => setCoursePodcastHeader(event.target.value)}
+                        />
                     </div>
                     <div className="addPodcast-input">
                         <label>About</label>
-                        <InputBar type="text" />
+                        <InputBar
+                            type="text"
+                            name="coursePodcastAbout"
+                            value={coursePodcastAbout}
+                            handleInput={(event) => setCoursePodcastAbout(event.target.value)}
+                        />
                     </div>
                     <div className="addPodcast-input">
                         <label>Duration</label>
-                        <InputBar type="text" />
+                        <InputBar
+                            type="text"
+                            name="coursePodcastDuration"
+                            value={coursePodcastDuration}
+                            handleInput={(event) => setCoursePodcastDuration(event.target.value)}
+                        />
                     </div>
                     <div className="podcast-input">
                         <div className="podcast-left">
