@@ -3,6 +3,7 @@ import { AreaInput, InputBar } from "../../../Tools/Input/Input";
 import "./AddVideo.css";
 import { ImFolderUpload } from 'react-icons/im';
 import { AiOutlineClose, AiOutlineCloseCircle } from 'react-icons/ai';
+import axios from "axios";
 
 function AddVideo(props) {
 
@@ -29,17 +30,20 @@ function AddVideo(props) {
     const [courseVideoPreview, setVideoPreview] = useState([]);
     const [courseVideo, setCourseVideo] = useState([]);
     const [courseVideoThumbnail, setVideoThumbnail] = useState([])
-    const [courseVideoWhatYouWillGet, setCourseVideoWhatYouWillGet] = useState(['']);
-    const [courseVideoRequirements, setVideoRequirements] = useState([]);
-    const [courseVideoWhoIsThisFor, setCourseVideoWhoIsThisFor] = useState([]);
     const [courseVideoDescription, setCourseVideoDescription] = useState("");
-    const [courseVideoAboutThisCourse, setCourseVideoAboutThisCourse] = useState([]);
     const [courseVideoInstructorName, setCourseVideoInstructorName] = useState("")
     const [courseVideoInstructorImage, setCourseVideoInstructorImage] = useState([]);
 
-    function handleVideoThumbnail(event) {
+    const api = `${process.env.REACT_APP_API}/api`;
+
+    function handleVideoPreview(event) {
         const video = Array.from(event.target.files);
         setVideoPreview(video);
+    }
+
+    function handleVideoThumbnail(event) {
+        const image = Array.from(event.target.files);
+        setVideoThumbnail(image);
     }
 
     function handleFullVideo(event) {
@@ -84,21 +88,83 @@ function AddVideo(props) {
 
         const sendData = {
             courseVideoLevel: 'Level1',
-            courseVideoCategory: { courseVideoCategory },
-            courseVideoTitle: { courseVideoTitle },
-            courseVideoDuration: { courseVideoDuration },
-            courseVideoPreview: { courseVideoPreview },
-            courseVideo: { courseVideo },
-            courseVideoWhatYouWillGet: { WhatYouWillGet },
-            courseVideoRequirements: { Requirements },
-            courseVideoWhoIsThisFor: { WhoIsThisFor },
-            courseVideoDescription: { courseVideoDescription },
-            courseVideoAboutThisCourse: { AboutThisCourse },
-            courseVideoInstructorName: { courseVideoInstructorName },
-            courseVideoInstructorImage: { courseVideoInstructorImage }
+            courseVideoCategory,
+            courseVideoTitle,
+            courseVideoDuration,
+            courseVideoPreview,
+            courseVideo,
+            courseVideoThumbnail,
+            WhatYouWillGet,
+            Requirements,
+            WhoIsThisFor,
+            courseVideoDescription,
+            AboutThisCourse,
+            courseVideoInstructorName,
+            courseVideoInstructorImage
         }
 
         console.log(sendData);
+
+        // axios
+        //     .post(
+        //         `http://localhost:4000/api/postCourseVideo`,
+        //         sendData,
+        //         {
+        //             headers: { "Content-Type": "multipart/form-data" },
+        //             withCredentials: true
+        //         }
+        //     )
+        //     .then(res => {
+        //         console.log(res);
+        //         console.log(`res in`);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         console.log(err.response.status);
+        //         console.log(err.response.data);
+        //     });
+
+        async function postData() {
+            try {
+                const res = await axios.post(
+                    `http://localhost:4000/api/postCourseVideo`,
+                    {
+                        courseVideoLevel: 'Level1',
+                        courseVideoCategory,
+                        courseVideoTitle,
+                        courseVideoDuration,
+                        courseVideoPreview,
+                        courseVideo,
+                        courseVideoThumbnail,
+                        WhatYouWillGet,
+                        Requirements,
+                        WhoIsThisFor,
+                        courseVideoDescription,
+                        AboutThisCourse,
+                        courseVideoInstructorName,
+                        courseVideoInstructorImage
+                    },
+                    {
+                        headers: { "Content-Type": "multipart/form-data" },
+                        withCredentials: true,
+                    }
+                );
+                console.log(res);
+                console.log(`res in`);
+            } catch (err) {
+                console.error(err);
+                console.log(err.response.status);
+                console.log(err.response.data);
+            }
+        }
+
+        // Call the postData function
+        postData();
+
+
+
+        console.log('clicked');
+
     }
 
     return (
@@ -144,12 +210,38 @@ function AddVideo(props) {
                                             type="file"
                                             className="custom-input"
                                             accept=".mp4,.mpeg,.mpg"
-                                            onChange={handleVideoThumbnail}
+                                            onChange={handleVideoPreview}
                                         />
                                     </label>
                                     <ImFolderUpload />
                                     <span className="input-text">Drag & drop files here</span>
                                     <span className="input-text">File Supported: mp4, mpg, mpeg.</span>
+                                    <span className="input-btn">Browse Files</span>
+                                    <span className="input-text">Maximum size: 500mb</span>
+                                </div>
+                            </div>
+                            <div className="input-right">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className="thumbnail-section">
+                        <label>Thumbnail Image</label>
+                        <div className="video-input">
+                            <div className="video-left">
+                                <div className="left-title">Upload Thumbnail Image</div>
+                                <div className="video-border">
+                                    <label>
+                                        <input
+                                            type="file"
+                                            className="custom-input"
+                                            accept=".jpg,.jpeg"
+                                            onChange={handleVideoThumbnail}
+                                        />
+                                    </label>
+                                    <ImFolderUpload />
+                                    <span className="input-text">Drag & drop files here</span>
+                                    <span className="input-text">File Supported: jpg, jpeg.</span>
                                     <span className="input-btn">Browse Files</span>
                                     <span className="input-text">Maximum size: 500mb</span>
                                 </div>

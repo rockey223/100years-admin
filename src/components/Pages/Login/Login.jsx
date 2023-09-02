@@ -3,6 +3,7 @@ import "./Login.css"
 import { InputBar } from "../../Tools/Input/Input";
 import logo from "../../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
 
@@ -11,7 +12,7 @@ function Login() {
         adminEmail: "",
         adminPassword: ""
     })
-    const api = `${process.env.REACT_APP_API}/api`;
+    const API = `${process.env.REACT_APP_API}/api`;
 
 
 
@@ -26,21 +27,22 @@ function Login() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        // axios
-        //     .post(`${api}/adminLogin`, login, { withCredentials: true })
-        //     .then(res => {
-        //         if (res.data.success === true) {
-        //             // setIsLoggedIn(() => { return true; });
-        //             navigate(`/admin`);
-        //             setLogin({
-        //                 adminEmail: "",
-        //                 adminPassword: "",
-        //             })
-        //         }
-        //         console.log(res)
-        //     })
-        //     .catch(err => console.log(err));
-        navigate(`/admin`);
+        axios
+            // .post(`${API}/adminLogin`, login, { withCredentials: true })
+            .post(`http://localhost:4000/api/adminLogin`, login, { withCredentials: true })
+            .then(res => {
+                if (res.data.success === true) {
+                    // setIsLoggedIn(() => { return true; });
+                    navigate(`/admin`);
+                    setLogin({
+                        adminEmail: "",
+                        adminPassword: "",
+                    })
+                }
+                console.log(res)
+            })
+            .catch(err => console.log(err));
+        // navigate(`/admin`);
     }
 
 
