@@ -10,6 +10,9 @@ function AddBlog(props) {
     const [subHeadingCount, setSubHeadingCount] = useState(1);
     const [subHeadingSections, setSubHeadingSections] = useState([1]);
 
+    const [heading , setHeading] = useState("");
+    const [description , setDescription] = useState("");
+
     function AddSubHeadingCount() {
         setSubHeadingCount(subHeadingCount + 1);
         setSubHeadingSections([...subHeadingSections, subHeadingCount + 1]);
@@ -22,56 +25,15 @@ function AddBlog(props) {
         console.log(subHeadingSections);
     }
 
+    function handleInput(event){
+        
+    }
+
     return (
         <div className="addblog-background" style={props.addPop ? { display: "block" } : { display: "none" }}>
             <div className="addblog-container">
                 <button className="close-btn" onClick={() => props.setAdd(false)}><AiOutlineCloseCircle /></button>
                 <div className="addblog-content">
-                    {/* <div className="about-input">
-                        <label>About</label>
-                        <InputBar
-                            type={"text"}
-                            placeholder={"example: Meditation"}
-                            height="25px"
-                            width="640px"
-                        />
-                    </div>
-                    <div className="header-input">
-                        <label>Header</label>
-                        <InputBar
-                            type={"text"}
-                            placeholder={"example: The Importance Of Healthy Life in our daily life."}
-                            height="25px"
-                            width="640px"
-                        />
-                    </div>
-                    <div className="file-input">
-                        <div className="input-left">
-                            <div className="input-border">
-                                <label>
-                                    <InputBar
-                                        type={"file"}
-                                        className="custom-input"
-                                        accept=".doc,.docx,application/pdf"
-                                    />
-                                </label>
-                                <AiOutlineUpload />
-                                <span className="input-text">Drag & drop files here</span>
-                                <span className="input-text">or</span>
-                                <span className="input-btn">Browse Files</span>
-                                <span className="input-text">Maximum Size: 500mb</span>
-                                <span className="input-text">File Supported: docx, pdf, etc.</span>
-                            </div>
-                        </div>
-                        <div className="input-right">
-
-                        </div>
-                    </div>
-                    <div className="addblog-buttons">
-                        <button className="save-button">Save</button>
-                        <button className="cancel-button">Cancel</button>
-                    </div> */}
-
                     <div className="blog-heading-section">
                         <label>Heading</label>
                         <InputBar
@@ -79,6 +41,7 @@ function AddBlog(props) {
                             // placeholder={"example: Meditation"}
                             height="25px"
                             width="638px"
+                            handleInput= {handleInput}
                         />
                         <label>Description</label>
                         <AreaInput

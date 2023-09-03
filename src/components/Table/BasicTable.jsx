@@ -1,20 +1,15 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTable } from "react-table";
 import "./BasicTable.css";
 
-// import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 
 function BasicTable(props) {
 
     const tableInstance = useTable({
         columns: useMemo(() => props.COLUMNS, []),
-        data: useMemo(() => props.DATA, []),
-    })
-
-    useEffect(() => {
-        // console.log();
-    }, [tableInstance])
+        data: useMemo(() => props.DATA, [props.DATA]),
+    });
 
     const {
         getTableProps,
@@ -24,6 +19,17 @@ function BasicTable(props) {
         prepareRow
     } = tableInstance
 
+    function handleEditClick(id){
+        props.editId(id);
+        props.setShowEV(true);
+    }
+
+    function handleDeleteClick(id){
+        props.deleteId(id);
+        props.setShowC(true);
+    }
+
+    
     return (
         <div className="table-container">
             <table {...getTableProps()}>
@@ -73,8 +79,8 @@ function BasicTable(props) {
                                     : ""}
                                 {props.ActionBtn ?
                                     <td className="action-btn">
-                                        <button className="edit-button"><RiDeleteBinLine className="del-can" /></button>
-                                        <button className="delete-button"><RiEditLine className="edit-pen" /></button>
+                                        <button className="delete-button" onClick={() => {handleDeleteClick(row.original._id)}}><RiDeleteBinLine className="del-can" /></button>
+                                        <button className="edit-button" onClick={() => {handleEditClick(row.original._id)}}><RiEditLine className="edit-pen" /></button>
                                     </td>
                                     : ""}
                             </tr>
@@ -85,5 +91,4 @@ function BasicTable(props) {
         </div>
     );
 }
-
 export default BasicTable;

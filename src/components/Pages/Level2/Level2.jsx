@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditVideo from "./Video/EditVideo";
 
-function Level1() {
+function Level2() {
 
     const [showAddVid, setShowAddVid] = useState(false);
     const [showEditVid, setShowEditVid] = useState(false);
@@ -26,8 +26,8 @@ function Level1() {
         axios
         .get(`http://localhost:4000/api/getAllCourseVideo`, {withCredentials: true})
         .then(res => {
-            const Level1Video = res.data.data.filter((item) => item.courseVideoLevel === "level1");
-            const Videodata = Level1Video.map((item, index) => ({...item, sn: index + 1}));
+            const Level2Video = res.data.data.filter((item) => item.courseVideoLevel === "level2");
+            const Videodata = Level2Video.map((item, index) => ({...item, sn: index + 1}));
             const UpdatedData = Videodata.map((item) => {
                 const trimmedDescription = item.courseVideoDescription.substring(0, 20);
                 const descriptionWithEllipsis = item.courseVideoDescription.length > 20 ? trimmedDescription + "..." : trimmedDescription;
@@ -124,7 +124,7 @@ function Level1() {
                 />
                 : ""}
             <Top
-                title="Campaign / Level 1"
+                title="Campaign / Level 2"
                 add={true}
                 group={true}
                 filters={["Video", "Article", "Podcast", "Blog"]}
@@ -149,4 +149,4 @@ function Level1() {
     );
 }
 
-export default Level1;
+export default Level2;

@@ -8,6 +8,7 @@ import Feedback from "../Pages/Feedback/Feedback";
 import Blog from "../Pages/Blog/Blog";
 import Login from "../Pages/Login/Login";
 import Level1 from "../Pages/Level1/Level1";
+import Level2 from "../Pages/Level2/Level2";
 
 function GeneralRoutes() {
     return (
@@ -18,7 +19,7 @@ function GeneralRoutes() {
                 <Route path="users" element={<Users />} />
                 <Route path="accounts" element={<Accounts />} />
                 <Route path="level1" element={<Level1 />} />
-                <Route path="level2" element={<h1>Level 2</h1>} />
+                <Route path="level2" element={<Level2 />} />
                 <Route path="payments" element={<Payments />} />
                 <Route path="feedback" element={<Feedback />} />
                 <Route path="blog" element={<Blog />} />

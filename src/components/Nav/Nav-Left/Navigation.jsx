@@ -29,13 +29,13 @@ function Navigation() {
     }
 
     function handleLogout() {
-        // axios
-        //     .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
-        //     .then(res => {
-        //         navigate(`/`);
-        //     })
-        //     .catch(err => console.log(err));
-        navigate('/');
+        axios
+            .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
+            .then(res => {
+                navigate(`/`);
+            })
+            .catch(err => console.log(err));
+        // navigate('/');
     }
 
     return (

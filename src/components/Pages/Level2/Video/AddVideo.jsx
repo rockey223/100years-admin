@@ -99,7 +99,7 @@ function AddVideo(props) {
         const AboutThisCourse = sections4.map((item) => item.value);
 
         const sendData = {
-            courseVideoLevel: 'level1',
+            courseVideoLevel: 'level2',
             courseVideoCategory,
             courseVideoTitle,
             courseVideoDuration,

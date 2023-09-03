@@ -34,12 +34,14 @@ const SearchInput = ({ placeholder, height, width }) => {
     );
 }
 
-const AreaInput = ({ height, width }) => {
+const AreaInput = ({ height, width, handleInput, value }) => {
     return (
         <>
             <div className="text-area">
                 <textarea
                     style={{ height, width }}
+                    value={value}
+                    onChange={handleInput}
                 />
             </div>
         </>

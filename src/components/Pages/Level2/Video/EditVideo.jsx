@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-function AddVideo(props) {
+function EditVideo(props) {
 
     const [subHeadingCount1, setSubHeadingCount1] = useState(1);
     const [subHeadingCount2, setSubHeadingCount2] = useState(1);
@@ -25,7 +25,7 @@ function AddVideo(props) {
     const [sections4, setSections4] = useState([
         { id: 1, value: '' }
     ]);
-
+    const [courseVideoData, setCourseVideoData] = useState([]);
     const [courseVideoCategory, setVideoCategory] = useState("");
     const [courseVideoTitle, setVideoTitle] = useState("");
     const [courseVideoDuration, setVideoDuration] = useState("");
@@ -41,6 +41,63 @@ function AddVideo(props) {
     const [instructorImageName ,setInstructorImageName] = useState("");
 
     const api = `${process.env.REACT_APP_API}/api`;
+
+    useEffect(() => {
+        if(props.editId){
+            axios
+            .get(`http://localhost:4000/api/getOneCourseVideo/${props.editId}`, {withCredentials: true})
+            .then(res => {
+                setCourseVideoData(res.data.data);
+                setVideoCategory(res.data.data.courseVideoCategory);
+                setVideoTitle(res.data.data.courseVideoTitle);
+                setVideoDuration(res.data.data.courseVideoDuration);
+                setVideoPreview(res.data.data.courseVideoPreview);
+                setCourseVideo(res.data.data.courseVideo);
+                setVideoThumbnail(res.data.data.courseVideoThumbnail);
+                setCourseVideoDescription(res.data.data.courseVideoDescription);
+                setCourseVideoInstructorName(res.data.data.courseVideoInstructorName);
+                setCourseVideoInstructorImage(res.data.data.courseVideoInstructorImage);
+                setPreviewName(res.data.data.courseVideoPreview.substring(0, 17));
+                setThumbnailName(res.data.data.courseVideoThumbnail.substring(0, 17));
+                setVideoName(res.data.data.courseVideo.substring(0, 17));
+                setInstructorImageName(res.data.data.courseVideoInstructorImage.substring(0, 17));
+
+                const whatData = res.data.data.courseVideoWhatYouWillGet;
+                const newSection = whatData.map((item) => {
+                    const newSectionId = subHeadingCount1 +1;
+                    setSubHeadingCount1(newSectionId);
+                    return{id: newSectionId, value: item};
+                })
+                setSections(newSection)
+
+                const ReqData = res.data.data.courseVideoRequirements;
+                const newSection2 = ReqData.map((item) => {
+                    const newSectionId = subHeadingCount2 +1;
+                    setSubHeadingCount2(newSectionId);
+                    return{id: newSectionId, value: item};
+                })
+                setSections2(newSection2)
+
+                const whoData = res.data.data.courseVideoWhoIsThisFor;
+                const newSection3 = whoData.map((item) => {
+                    const newSectionId = subHeadingCount3 +1;
+                    setSubHeadingCount3(newSectionId);
+                    return{id: newSectionId, value: item};
+                })
+                setSections3(newSection3)
+
+                const aboutData = res.data.data.courseVideoAboutThisCourse;
+                const newSection4 = whatData.map((item) => {
+                    const newSectionId = subHeadingCount4 +1;
+                    setSubHeadingCount4(newSectionId);
+                    return{id: newSectionId, value: item};
+                })
+                setSections4(newSection4)
+
+            })
+            .catch(err => console.log(err));
+        }
+    }, [props.editId])
 
     function handleVideoPreview(event) {
         const video = Array.from(event.target.files);
@@ -91,15 +148,13 @@ function AddVideo(props) {
 
     function handleSubmit() {
 
-        console.log(courseVideo);
-
         const WhatYouWillGet = sections.map((item) => item.value);
         const Requirements = sections2.map((item) => item.value);
         const WhoIsThisFor = sections3.map((item) => item.value);
         const AboutThisCourse = sections4.map((item) => item.value);
 
         const sendData = {
-            courseVideoLevel: 'level1',
+            courseVideoLevel: 'level2',
             courseVideoCategory,
             courseVideoTitle,
             courseVideoDuration,
@@ -123,23 +178,41 @@ function AddVideo(props) {
         }
 
         axios
-            .post(
-                `http://localhost:4000/api/postCourseVideo`,
+            .patch(
+                `http://localhost:4000/api/updateCourseVideo/${props.editId}`,
                 {
                     courseVideoLevel: sendData.courseVideoLevel,
                     courseVideoCategory: sendData.courseVideoCategory,
                     courseVideoTitle: sendData.courseVideoTitle,
                     courseVideoDuration: sendData.courseVideoDuration,
-                    courseVideoPreview: sendData.courseVideoPreview[0],
-                    courseVideo: sendData.courseVideo[0],
-                    courseVideoThumbnail: sendData.courseVideoThumbnail[0],
+                    ...(courseVideoPreview !== courseVideoData.courseVideoPreview ?
+                    {courseVideoPreview: sendData.courseVideoPreview[0]}
+                        : {}
+                    ),
+                    ...(courseVideoThumbnail !== courseVideoData.courseVideoThumbnail ?
+                        {courseVideoThumbnail: sendData.courseVideoThumbnail[0]}
+                        : {}
+                    ),
+                    ...(courseVideo !== courseVideoData.courseVideo ?
+                        {courseVideoThumbnail: sendData.courseVideoThumbnail[0]}
+                        : {}
+                    ),
+                    ...(courseVideo !== courseVideoData.courseVideo ?
+                        {courseVideo: sendData.courseVideo[0]}
+                        : {}
+                    ),
+                    ...(courseVideoInstructorImage !== courseVideoData.courseVideoInstructorImage ?
+                        {courseVideoInstructorImage: sendData.courseVideoInstructorImage[0]}
+                        : {}
+                    ),
+                    
                     courseVideoWhatYouWillGet: sendData.WhatYouWillGet ,
                     courseVideoRequirements: sendData.Requirements,
                     courseVideoWhoIsThisFor: sendData.WhoIsThisFor,
                     courseVideoDescription: sendData.courseVideoDescription,
                     courseVideoAboutThisCourse: sendData.AboutThisCourse ,
                     courseVideoInstructorName: sendData.courseVideoInstructorName,
-                    courseVideoInstructorImage: sendData.courseVideoInstructorImage[0]
+                    
                 },
                 {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -148,7 +221,7 @@ function AddVideo(props) {
             )
             .then(res => {
                 console.log(res);
-                toast.success("Course Video Added");
+                toast.success("Course Video Updated");
                 ClearForms();
                 props.refresh(prev => !prev)
             })
@@ -614,4 +687,4 @@ function AddVideo(props) {
     );
 }
 
-export default AddVideo;
+export default EditVideo;
