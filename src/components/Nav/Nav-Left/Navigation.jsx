@@ -24,13 +24,16 @@ function Navigation() {
     const [showConfirm, setShowConfirm] = useState(false);
     const [showEditProfile, setShowEditProfile] = useState(false);
 
+    const API = `${process.env.REACT_APP_API}/api`;
+
     function showCourses() {
         setShowCourse((prev) => !prev);
     }
 
     function handleLogout() {
         axios
-            .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
+            .get(`${API}/adminLogout`, { withCredentials: true })
+            // .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
             .then(res => {
                 navigate(`/`);
             })

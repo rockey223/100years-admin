@@ -62,6 +62,11 @@ function AddBlog(props) {
         setSubDescriptions([...subDescriptions, { id: newSectionId, value: '' }]);
     };
 
+
+    function handleSubmit() {
+        console.log(sections);
+        console.log(subDescriptions);
+    }
     // useEffect(() => {
     //     console.log(sections);
     //     console.log(subDescriptions);
@@ -187,7 +192,7 @@ function AddBlog(props) {
                         </div>
                     </div>
                     <div className="addblog-buttons">
-                        <button className="save-button">Save</button>
+                        <button className="save-button" onClick={handleSubmit}>Save</button>
                         <button className="cancel-button">Cancel</button>
                     </div>
                 </div>
