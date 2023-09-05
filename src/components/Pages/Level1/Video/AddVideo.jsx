@@ -38,9 +38,9 @@ function AddVideo(props) {
     const [videoName, setVideoName] = useState("");
     const [thumbnailName, setThumbnailName] = useState("");
     const [previewName, setPreviewName] = useState("");
-    const [instructorImageName ,setInstructorImageName] = useState("");
+    const [instructorImageName, setInstructorImageName] = useState("");
 
-    const api = `${process.env.REACT_APP_API}/api`;
+    const API = `${process.env.REACT_APP_API}/api`;
 
     function handleVideoPreview(event) {
         const video = Array.from(event.target.files);
@@ -117,14 +117,15 @@ function AddVideo(props) {
 
         // console.log(sendData);
 
-        if(!courseVideoCategory || !courseVideoTitle || !courseVideoDuration || courseVideoPreview.length === 0 || courseVideo.length === 0 || courseVideoThumbnail.length === 0 || !courseVideoDescription || courseVideoInstructorImage.length === 0 || !courseVideoInstructorName){
+        if (!courseVideoCategory || !courseVideoTitle || !courseVideoDuration || courseVideoPreview.length === 0 || courseVideo.length === 0 || courseVideoThumbnail.length === 0 || !courseVideoDescription || courseVideoInstructorImage.length === 0 || !courseVideoInstructorName) {
             toast.error("Please fill in all required fields! *");
             return;
         }
 
         axios
-            .post(
-                `http://localhost:4000/api/postCourseVideo`,
+            .post(`${API}/postCourseVideo`,
+                // .post(
+                //     `http://localhost:4000/api/postCourseVideo`,
                 {
                     courseVideoLevel: sendData.courseVideoLevel,
                     courseVideoCategory: sendData.courseVideoCategory,
@@ -133,11 +134,11 @@ function AddVideo(props) {
                     courseVideoPreview: sendData.courseVideoPreview[0],
                     courseVideo: sendData.courseVideo[0],
                     courseVideoThumbnail: sendData.courseVideoThumbnail[0],
-                    courseVideoWhatYouWillGet: sendData.WhatYouWillGet ,
+                    courseVideoWhatYouWillGet: sendData.WhatYouWillGet,
                     courseVideoRequirements: sendData.Requirements,
                     courseVideoWhoIsThisFor: sendData.WhoIsThisFor,
                     courseVideoDescription: sendData.courseVideoDescription,
-                    courseVideoAboutThisCourse: sendData.AboutThisCourse ,
+                    courseVideoAboutThisCourse: sendData.AboutThisCourse,
                     courseVideoInstructorName: sendData.courseVideoInstructorName,
                     courseVideoInstructorImage: sendData.courseVideoInstructorImage[0]
                 },
@@ -157,16 +158,16 @@ function AddVideo(props) {
             });
     }
 
-    function ClearForms(){
+    function ClearForms() {
         setSubHeadingCount1(1);
         setSubHeadingCount2(1);
         setSubHeadingCount3(1);
         setSubHeadingCount4(1);
 
-        setSections([ { id: 1, value: '' } ]);
-        setSections2([ { id: 1, value: '' } ]);
-        setSections3([ { id: 1, value: '' } ]);
-        setSections4([ { id: 1, value: '' } ]);
+        setSections([{ id: 1, value: '' }]);
+        setSections2([{ id: 1, value: '' }]);
+        setSections3([{ id: 1, value: '' }]);
+        setSections4([{ id: 1, value: '' }]);
 
         setVideoCategory("");
         setVideoTitle("");
@@ -183,7 +184,7 @@ function AddVideo(props) {
         <div className="addVideo-back" style={props.showAV ? { display: "block" } : { display: "none" }}>
             <ToastContainer />
             <div className="addVideo-container">
-                <button className="addvideo-close-btn" onClick={() => {props.setShowAV(false); ClearForms();}}><AiOutlineCloseCircle /></button>
+                <button className="addvideo-close-btn" onClick={() => { props.setShowAV(false); ClearForms(); }}><AiOutlineCloseCircle /></button>
                 <div className="addVideo-content">
                     <div className="addvideo-inputarea">
                         <label>Category</label>
@@ -236,19 +237,19 @@ function AddVideo(props) {
                             <div className="input-right">
                                 {courseVideoPreview.length > 0 ? (
                                     <>
-                                <div>File Name: {previewName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setPreviewName("");
-                                    setVideoPreview([]);
-                                }}>Remove</button>
-                                </>
-                                ): (
-                                <div className="NotUploaded">Upload a File</div>
+                                        <div>File Name: {previewName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                        <button onClick={() => {
+                                            setPreviewName("");
+                                            setVideoPreview([]);
+                                        }}>Remove</button>
+                                    </>
+                                ) : (
+                                    <div className="NotUploaded">Upload a File</div>
                                 )}
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="thumbnail-section">
                         <label>Thumbnail Image</label>
                         <div className="video-input">
@@ -273,14 +274,14 @@ function AddVideo(props) {
                             <div className="input-right">
                                 {courseVideoThumbnail.length > 0 ? (
                                     <>
-                                <div>File Name: {thumbnailName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setThumbnailName("");
-                                    setVideoThumbnail([]);
-                                }}>Remove</button>
-                                </>
-                                ): (
-                                <div className="NotUploaded">Upload a File</div>
+                                        <div>File Name: {thumbnailName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                        <button onClick={() => {
+                                            setThumbnailName("");
+                                            setVideoThumbnail([]);
+                                        }}>Remove</button>
+                                    </>
+                                ) : (
+                                    <div className="NotUploaded">Upload a File</div>
                                 )}
                             </div>
                         </div>
@@ -311,14 +312,14 @@ function AddVideo(props) {
                             <div className="input-right">
                                 {courseVideo.length > 0 ? (
                                     <>
-                                <div>File Name: {videoName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setVideoName("");
-                                    setCourseVideo([]);
-                                }}>Remove</button>
-                                </>
-                                ): (
-                                <div className="NotUploaded">Upload a File</div>
+                                        <div>File Name: {videoName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                        <button onClick={() => {
+                                            setVideoName("");
+                                            setCourseVideo([]);
+                                        }}>Remove</button>
+                                    </>
+                                ) : (
+                                    <div className="NotUploaded">Upload a File</div>
                                 )}
                             </div>
                         </div>
@@ -588,18 +589,18 @@ function AddVideo(props) {
                             </div>
                         </div>
                         <div className="input-right">
-                                {courseVideoInstructorImage.length > 0 ? (
-                                    <>
-                                <div>File Name: {instructorImageName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setInstructorImageName("");
-                                    setCourseVideoInstructorImage([]);
-                                }}>Remove</button>
+                            {courseVideoInstructorImage.length > 0 ? (
+                                <>
+                                    <div>File Name: {instructorImageName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                    <button onClick={() => {
+                                        setInstructorImageName("");
+                                        setCourseVideoInstructorImage([]);
+                                    }}>Remove</button>
                                 </>
-                                ): (
+                            ) : (
                                 <div className="NotUploaded">Upload a File</div>
-                                )}
-                            </div>
+                            )}
+                        </div>
                     </div>
                     <div className="addvideo-buttons">
                         <button className="addvideo-saveBtn" onClick={handleSubmit}>Save</button>

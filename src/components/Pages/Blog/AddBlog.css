@@ -65,6 +65,10 @@
 .file-input {
     border: 1px dashed rgba(93, 96, 109, 0.40);
     border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .input-left {

@@ -38,64 +38,65 @@ function EditVideo(props) {
     const [videoName, setVideoName] = useState("");
     const [thumbnailName, setThumbnailName] = useState("");
     const [previewName, setPreviewName] = useState("");
-    const [instructorImageName ,setInstructorImageName] = useState("");
+    const [instructorImageName, setInstructorImageName] = useState("");
 
-    const api = `${process.env.REACT_APP_API}/api`;
+    const API = `${process.env.REACT_APP_API}/api`;
 
     useEffect(() => {
-        if(props.editId){
+        if (props.editId) {
             axios
-            .get(`http://localhost:4000/api/getOneCourseVideo/${props.editId}`, {withCredentials: true})
-            .then(res => {
-                setCourseVideoData(res.data.data);
-                setVideoCategory(res.data.data.courseVideoCategory);
-                setVideoTitle(res.data.data.courseVideoTitle);
-                setVideoDuration(res.data.data.courseVideoDuration);
-                setVideoPreview(res.data.data.courseVideoPreview);
-                setCourseVideo(res.data.data.courseVideo);
-                setVideoThumbnail(res.data.data.courseVideoThumbnail);
-                setCourseVideoDescription(res.data.data.courseVideoDescription);
-                setCourseVideoInstructorName(res.data.data.courseVideoInstructorName);
-                setCourseVideoInstructorImage(res.data.data.courseVideoInstructorImage);
-                setPreviewName(res.data.data.courseVideoPreview.substring(0, 17));
-                setThumbnailName(res.data.data.courseVideoThumbnail.substring(0, 17));
-                setVideoName(res.data.data.courseVideo.substring(0, 17));
-                setInstructorImageName(res.data.data.courseVideoInstructorImage.substring(0, 17));
+                .get(`${API}/getOneCourseVideo/${props.editId}`, { withCredentials: true })
+                // .get(`http://localhost:4000/api/getOneCourseVideo/${props.editId}`, {withCredentials: true})
+                .then(res => {
+                    setCourseVideoData(res.data.data);
+                    setVideoCategory(res.data.data.courseVideoCategory);
+                    setVideoTitle(res.data.data.courseVideoTitle);
+                    setVideoDuration(res.data.data.courseVideoDuration);
+                    setVideoPreview(res.data.data.courseVideoPreview);
+                    setCourseVideo(res.data.data.courseVideo);
+                    setVideoThumbnail(res.data.data.courseVideoThumbnail);
+                    setCourseVideoDescription(res.data.data.courseVideoDescription);
+                    setCourseVideoInstructorName(res.data.data.courseVideoInstructorName);
+                    setCourseVideoInstructorImage(res.data.data.courseVideoInstructorImage);
+                    setPreviewName(res.data.data.courseVideoPreview.substring(0, 17));
+                    setThumbnailName(res.data.data.courseVideoThumbnail.substring(0, 17));
+                    setVideoName(res.data.data.courseVideo.substring(0, 17));
+                    setInstructorImageName(res.data.data.courseVideoInstructorImage.substring(0, 17));
 
-                const whatData = res.data.data.courseVideoWhatYouWillGet;
-                const newSection = whatData.map((item) => {
-                    const newSectionId = subHeadingCount1 +1;
-                    setSubHeadingCount1(newSectionId);
-                    return{id: newSectionId, value: item};
+                    const whatData = res.data.data.courseVideoWhatYouWillGet;
+                    const newSection = whatData.map((item) => {
+                        const newSectionId = subHeadingCount1 + 1;
+                        setSubHeadingCount1(newSectionId);
+                        return { id: newSectionId, value: item };
+                    })
+                    setSections(newSection)
+
+                    const ReqData = res.data.data.courseVideoRequirements;
+                    const newSection2 = ReqData.map((item) => {
+                        const newSectionId = subHeadingCount2 + 1;
+                        setSubHeadingCount2(newSectionId);
+                        return { id: newSectionId, value: item };
+                    })
+                    setSections2(newSection2)
+
+                    const whoData = res.data.data.courseVideoWhoIsThisFor;
+                    const newSection3 = whoData.map((item) => {
+                        const newSectionId = subHeadingCount3 + 1;
+                        setSubHeadingCount3(newSectionId);
+                        return { id: newSectionId, value: item };
+                    })
+                    setSections3(newSection3)
+
+                    const aboutData = res.data.data.courseVideoAboutThisCourse;
+                    const newSection4 = whatData.map((item) => {
+                        const newSectionId = subHeadingCount4 + 1;
+                        setSubHeadingCount4(newSectionId);
+                        return { id: newSectionId, value: item };
+                    })
+                    setSections4(newSection4)
+
                 })
-                setSections(newSection)
-
-                const ReqData = res.data.data.courseVideoRequirements;
-                const newSection2 = ReqData.map((item) => {
-                    const newSectionId = subHeadingCount2 +1;
-                    setSubHeadingCount2(newSectionId);
-                    return{id: newSectionId, value: item};
-                })
-                setSections2(newSection2)
-
-                const whoData = res.data.data.courseVideoWhoIsThisFor;
-                const newSection3 = whoData.map((item) => {
-                    const newSectionId = subHeadingCount3 +1;
-                    setSubHeadingCount3(newSectionId);
-                    return{id: newSectionId, value: item};
-                })
-                setSections3(newSection3)
-
-                const aboutData = res.data.data.courseVideoAboutThisCourse;
-                const newSection4 = whatData.map((item) => {
-                    const newSectionId = subHeadingCount4 +1;
-                    setSubHeadingCount4(newSectionId);
-                    return{id: newSectionId, value: item};
-                })
-                setSections4(newSection4)
-
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
         }
     }, [props.editId])
 
@@ -172,7 +173,7 @@ function EditVideo(props) {
 
         // console.log(sendData);
 
-        if(!courseVideoCategory || !courseVideoTitle || !courseVideoDuration || courseVideoPreview.length === 0 || courseVideo.length === 0 || courseVideoThumbnail.length === 0 || !courseVideoDescription || courseVideoInstructorImage.length === 0 || !courseVideoInstructorName){
+        if (!courseVideoCategory || !courseVideoTitle || !courseVideoDuration || courseVideoPreview.length === 0 || courseVideo.length === 0 || courseVideoThumbnail.length === 0 || !courseVideoDescription || courseVideoInstructorImage.length === 0 || !courseVideoInstructorName) {
             toast.error("Please fill in all required fields! *");
             return;
         }
@@ -186,33 +187,33 @@ function EditVideo(props) {
                     courseVideoTitle: sendData.courseVideoTitle,
                     courseVideoDuration: sendData.courseVideoDuration,
                     ...(courseVideoPreview !== courseVideoData.courseVideoPreview ?
-                    {courseVideoPreview: sendData.courseVideoPreview[0]}
+                        { courseVideoPreview: sendData.courseVideoPreview[0] }
                         : {}
                     ),
                     ...(courseVideoThumbnail !== courseVideoData.courseVideoThumbnail ?
-                        {courseVideoThumbnail: sendData.courseVideoThumbnail[0]}
+                        { courseVideoThumbnail: sendData.courseVideoThumbnail[0] }
                         : {}
                     ),
                     ...(courseVideo !== courseVideoData.courseVideo ?
-                        {courseVideoThumbnail: sendData.courseVideoThumbnail[0]}
+                        { courseVideoThumbnail: sendData.courseVideoThumbnail[0] }
                         : {}
                     ),
                     ...(courseVideo !== courseVideoData.courseVideo ?
-                        {courseVideo: sendData.courseVideo[0]}
+                        { courseVideo: sendData.courseVideo[0] }
                         : {}
                     ),
                     ...(courseVideoInstructorImage !== courseVideoData.courseVideoInstructorImage ?
-                        {courseVideoInstructorImage: sendData.courseVideoInstructorImage[0]}
+                        { courseVideoInstructorImage: sendData.courseVideoInstructorImage[0] }
                         : {}
                     ),
-                    
-                    courseVideoWhatYouWillGet: sendData.WhatYouWillGet ,
+
+                    courseVideoWhatYouWillGet: sendData.WhatYouWillGet,
                     courseVideoRequirements: sendData.Requirements,
                     courseVideoWhoIsThisFor: sendData.WhoIsThisFor,
                     courseVideoDescription: sendData.courseVideoDescription,
-                    courseVideoAboutThisCourse: sendData.AboutThisCourse ,
+                    courseVideoAboutThisCourse: sendData.AboutThisCourse,
                     courseVideoInstructorName: sendData.courseVideoInstructorName,
-                    
+
                 },
                 {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -230,16 +231,16 @@ function EditVideo(props) {
             });
     }
 
-    function ClearForms(){
+    function ClearForms() {
         setSubHeadingCount1(1);
         setSubHeadingCount2(1);
         setSubHeadingCount3(1);
         setSubHeadingCount4(1);
 
-        setSections([ { id: 1, value: '' } ]);
-        setSections2([ { id: 1, value: '' } ]);
-        setSections3([ { id: 1, value: '' } ]);
-        setSections4([ { id: 1, value: '' } ]);
+        setSections([{ id: 1, value: '' }]);
+        setSections2([{ id: 1, value: '' }]);
+        setSections3([{ id: 1, value: '' }]);
+        setSections4([{ id: 1, value: '' }]);
 
         setVideoCategory("");
         setVideoTitle("");
@@ -256,7 +257,7 @@ function EditVideo(props) {
         <div className="addVideo-back" style={props.showAV ? { display: "block" } : { display: "none" }}>
             <ToastContainer />
             <div className="addVideo-container">
-                <button className="addvideo-close-btn" onClick={() => {props.setShowAV(false); ClearForms();}}><AiOutlineCloseCircle /></button>
+                <button className="addvideo-close-btn" onClick={() => { props.setShowAV(false); ClearForms(); }}><AiOutlineCloseCircle /></button>
                 <div className="addVideo-content">
                     <div className="addvideo-inputarea">
                         <label>Category</label>
@@ -309,19 +310,19 @@ function EditVideo(props) {
                             <div className="input-right">
                                 {courseVideoPreview.length > 0 ? (
                                     <>
-                                <div>File Name: {previewName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setPreviewName("");
-                                    setVideoPreview([]);
-                                }}>Remove</button>
-                                </>
-                                ): (
-                                <div className="NotUploaded">Upload a File</div>
+                                        <div>File Name: {previewName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                        <button onClick={() => {
+                                            setPreviewName("");
+                                            setVideoPreview([]);
+                                        }}>Remove</button>
+                                    </>
+                                ) : (
+                                    <div className="NotUploaded">Upload a File</div>
                                 )}
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="thumbnail-section">
                         <label>Thumbnail Image</label>
                         <div className="video-input">
@@ -346,14 +347,14 @@ function EditVideo(props) {
                             <div className="input-right">
                                 {courseVideoThumbnail.length > 0 ? (
                                     <>
-                                <div>File Name: {thumbnailName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setThumbnailName("");
-                                    setVideoThumbnail([]);
-                                }}>Remove</button>
-                                </>
-                                ): (
-                                <div className="NotUploaded">Upload a File</div>
+                                        <div>File Name: {thumbnailName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                        <button onClick={() => {
+                                            setThumbnailName("");
+                                            setVideoThumbnail([]);
+                                        }}>Remove</button>
+                                    </>
+                                ) : (
+                                    <div className="NotUploaded">Upload a File</div>
                                 )}
                             </div>
                         </div>
@@ -384,14 +385,14 @@ function EditVideo(props) {
                             <div className="input-right">
                                 {courseVideo.length > 0 ? (
                                     <>
-                                <div>File Name: {videoName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setVideoName("");
-                                    setCourseVideo([]);
-                                }}>Remove</button>
-                                </>
-                                ): (
-                                <div className="NotUploaded">Upload a File</div>
+                                        <div>File Name: {videoName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                        <button onClick={() => {
+                                            setVideoName("");
+                                            setCourseVideo([]);
+                                        }}>Remove</button>
+                                    </>
+                                ) : (
+                                    <div className="NotUploaded">Upload a File</div>
                                 )}
                             </div>
                         </div>
@@ -661,18 +662,18 @@ function EditVideo(props) {
                             </div>
                         </div>
                         <div className="input-right">
-                                {courseVideoInstructorImage.length > 0 ? (
-                                    <>
-                                <div>File Name: {instructorImageName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
-                                <button onClick={() => {
-                                    setInstructorImageName("");
-                                    setCourseVideoInstructorImage([]);
-                                }}>Remove</button>
+                            {courseVideoInstructorImage.length > 0 ? (
+                                <>
+                                    <div>File Name: {instructorImageName} {instructorImageName.length > 17 ? (<span>...</span>) : (null)}</div>
+                                    <button onClick={() => {
+                                        setInstructorImageName("");
+                                        setCourseVideoInstructorImage([]);
+                                    }}>Remove</button>
                                 </>
-                                ): (
+                            ) : (
                                 <div className="NotUploaded">Upload a File</div>
-                                )}
-                            </div>
+                            )}
+                        </div>
                     </div>
                     <div className="addvideo-buttons">
                         <button className="addvideo-saveBtn" onClick={handleSubmit}>Save</button>
