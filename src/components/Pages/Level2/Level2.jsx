@@ -21,36 +21,39 @@ function Level2() {
     const [editId, setEditId] = useState("");
     const [deleteId, setDeleteId] = useState("");
     const [refresh, setRefresh] = useState(true);
+    const API = `${process.env.REACT_APP_API}/api`;
 
     useEffect(() => {
         axios
-        .get(`http://localhost:4000/api/getAllCourseVideo`, {withCredentials: true})
-        .then(res => {
-            const Level2Video = res.data.data.filter((item) => item.courseVideoLevel === "level2");
-            const Videodata = Level2Video.map((item, index) => ({...item, sn: index + 1}));
-            const UpdatedData = Videodata.map((item) => {
-                const trimmedDescription = item.courseVideoDescription.substring(0, 20);
-                const descriptionWithEllipsis = item.courseVideoDescription.length > 20 ? trimmedDescription + "..." : trimmedDescription;
-                return {
-                    ...item, shortDescription: descriptionWithEllipsis
-                }
+            .get(`${API}/getAllCourseVideo`, { withCredentials: true })
+            // .get(`http://localhost:4000/api/getAllCourseVideo`, {withCredentials: true})
+            .then(res => {
+                const Level2Video = res.data.data.filter((item) => item.courseVideoLevel === "level2");
+                const Videodata = Level2Video.map((item, index) => ({ ...item, sn: index + 1 }));
+                const UpdatedData = Videodata.map((item) => {
+                    const trimmedDescription = item.courseVideoDescription.substring(0, 20);
+                    const descriptionWithEllipsis = item.courseVideoDescription.length > 20 ? trimmedDescription + "..." : trimmedDescription;
+                    return {
+                        ...item, shortDescription: descriptionWithEllipsis
+                    }
+                })
+                console.log(UpdatedData)
+                setCourseVideoData(UpdatedData);
+                setIsLoding(false);
             })
-            console.log(UpdatedData)
-            setCourseVideoData(UpdatedData);
-            setIsLoding(false);
-        })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
     }, [refresh])
 
-    function DeleteCourseData(id){
+    function DeleteCourseData(id) {
         axios
-        .delete(`http://localhost:4000/api/deleteCourseVideo/${deleteId}`, {withCredentials: true})
-        .then(res => {
-            toast.success(`Course Item Deleted`);
-            setShowConfirmBox(false);
-            setRefresh(prev => !prev);
-        })
-        .catch(err => console.log(err));
+            .delete(`${API}/deleteCourseVideo/${deleteId}`, { withCredentials: true })
+            // .delete(`http://localhost:4000/api/deleteCourseVideo/${deleteId}`, { withCredentials: true })
+            .then(res => {
+                toast.success(`Course Item Deleted`);
+                setShowConfirmBox(false);
+                setRefresh(prev => !prev);
+            })
+            .catch(err => console.log(err));
     }
 
     const COLUMNS = [
@@ -89,26 +92,26 @@ function Level2() {
     return (
         <div className="level1-container">
             <ToastContainer />
-            <ConfirmBox 
-                showC = {showConfirmBox}
-                message= "Are you sure you want to delete?"
-                setShowC = {setShowConfirmBox}
-                buttonAction = {DeleteCourseData}
-                buttonText = "Delete"
+            <ConfirmBox
+                showC={showConfirmBox}
+                message="Are you sure you want to delete?"
+                setShowC={setShowConfirmBox}
+                buttonAction={DeleteCourseData}
+                buttonText="Delete"
             />
             {activeCourse === 'Video' ?
-            <>
-                <AddVideo
-                    showAV={showAddVid}
-                    setShowAV={setShowAddVid}
-                    refresh= {setRefresh}
-                />
-                <EditVideo 
-                    showAV ={showEditVid}
-                    setShowAV = {setShowEditVid}
-                    editId = {editId}
-                    refresh= {setRefresh}
-                />
+                <>
+                    <AddVideo
+                        showAV={showAddVid}
+                        setShowAV={setShowAddVid}
+                        refresh={setRefresh}
+                    />
+                    <EditVideo
+                        showAV={showEditVid}
+                        setShowAV={setShowEditVid}
+                        editId={editId}
+                        refresh={setRefresh}
+                    />
                 </>
                 : ""}
             {activeCourse === 'Article' ?
@@ -132,18 +135,18 @@ function Level2() {
                 activeCourse={activeCourse}
                 setActiveC={setActiveCourse}
             />
-            {isLoading? (
+            {isLoading ? (
                 <div>Loading... </div>
-            ):(
-            <Table
-                COLUMNS={COLUMNS}
-                ActionBtn={true}
-                DATA={courseVideoData}
-                editId={setEditId}
-                deleteId={setDeleteId}
-                setShowC = {setShowConfirmBox}
-                setShowEV = {setShowEditVid}
-            />
+            ) : (
+                <Table
+                    COLUMNS={COLUMNS}
+                    ActionBtn={true}
+                    DATA={courseVideoData}
+                    editId={setEditId}
+                    deleteId={setDeleteId}
+                    setShowC={setShowConfirmBox}
+                    setShowEV={setShowEditVid}
+                />
             )}
         </div>
     );

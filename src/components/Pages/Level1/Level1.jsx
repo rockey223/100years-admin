@@ -136,7 +136,7 @@ function Level1() {
                 setActiveC={setActiveCourse}
             />
             {isLoading ? (
-                <div>Loading... </div>
+                <div>No data found... </div>
             ) : (
                 <Table
                     COLUMNS={COLUMNS}
