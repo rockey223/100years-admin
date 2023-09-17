@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import { AreaInput, InputBar } from "../../../Tools/Input/Input";
 import "./AddVideo.css";
 import { ImFolderUpload } from 'react-icons/im';
@@ -44,6 +44,32 @@ function EditVideo(props) {
 
     useEffect(() => {
         if (props.editId) {
+
+            setSubHeadingCount1(1);
+            setSubHeadingCount2(1);
+            setSubHeadingCount3(1);
+            setSubHeadingCount4(1);
+
+            setSections([{ id: 1, value: '' }]);
+            setSections2([{ id: 1, value: '' }]);
+            setSections3([{ id: 1, value: '' }]);
+            setSections4([{ id: 1, value: '' }]);
+
+            setCourseVideoData([]);
+            setVideoCategory("");
+            setVideoTitle("");
+            setVideoDuration("");
+            setVideoPreview([]);
+            setCourseVideo([]);
+            setVideoThumbnail([]);
+            setCourseVideoDescription("");
+            setCourseVideoInstructorName("");
+            setCourseVideoInstructorImage([]);
+            setVideoName("");
+            setThumbnailName("");
+            setPreviewName("");
+            setInstructorImageName("");
+
             axios
                 .get(`${API}/getOneCourseVideo/${props.editId}`, { withCredentials: true })
                 // .get(`http://localhost:4000/api/getOneCourseVideo/${props.editId}`, {withCredentials: true})
@@ -61,7 +87,7 @@ function EditVideo(props) {
                     setPreviewName(res.data.data.courseVideoPreview.substring(0, 17));
                     setThumbnailName(res.data.data.courseVideoThumbnail.substring(0, 17));
                     setVideoName(res.data.data.courseVideo.substring(0, 17));
-                    setInstructorImageName(res.data.data.courseVideoInstructorImage.substring(0, 17));
+                    setInstructorImageName(res.data.data.courseVideoInstructorImage.substring(0, 17))
 
                     const whatData = res.data.data.courseVideoWhatYouWillGet;
                     const newSection = whatData.map((item) => {
@@ -69,7 +95,7 @@ function EditVideo(props) {
                         setSubHeadingCount1(newSectionId);
                         return { id: newSectionId, value: item };
                     })
-                    setSections(newSection)
+                    setSections(newSection);
 
                     const ReqData = res.data.data.courseVideoRequirements;
                     const newSection2 = ReqData.map((item) => {
@@ -77,7 +103,7 @@ function EditVideo(props) {
                         setSubHeadingCount2(newSectionId);
                         return { id: newSectionId, value: item };
                     })
-                    setSections2(newSection2)
+                    setSections2(newSection2);
 
                     const whoData = res.data.data.courseVideoWhoIsThisFor;
                     const newSection3 = whoData.map((item) => {
@@ -85,20 +111,20 @@ function EditVideo(props) {
                         setSubHeadingCount3(newSectionId);
                         return { id: newSectionId, value: item };
                     })
-                    setSections3(newSection3)
+                    setSections3(newSection3);
 
                     const aboutData = res.data.data.courseVideoAboutThisCourse;
-                    const newSection4 = whatData.map((item) => {
+                    const newSection4 = aboutData.map((item) => {
                         const newSectionId = subHeadingCount4 + 1;
                         setSubHeadingCount4(newSectionId);
                         return { id: newSectionId, value: item };
                     })
-                    setSections4(newSection4)
+                    setSections4(newSection4);
 
                 })
                 .catch(err => console.log(err));
         }
-    }, [props.editId])
+    }, [props.showAV])
 
     function handleVideoPreview(event) {
         const video = Array.from(event.target.files);
@@ -221,17 +247,16 @@ function EditVideo(props) {
                 }
             )
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 toast.success("Course Video Updated");
-                ClearForms();
-                props.refresh(prev => !prev)
+                CloseEditVideo();
             })
             .catch(err => {
                 console.log(err);
             });
     }
 
-    function ClearForms() {
+    function CloseEditVideo() {
         setSubHeadingCount1(1);
         setSubHeadingCount2(1);
         setSubHeadingCount3(1);
@@ -242,6 +267,7 @@ function EditVideo(props) {
         setSections3([{ id: 1, value: '' }]);
         setSections4([{ id: 1, value: '' }]);
 
+        setCourseVideoData([]);
         setVideoCategory("");
         setVideoTitle("");
         setVideoDuration("");
@@ -251,13 +277,20 @@ function EditVideo(props) {
         setCourseVideoDescription("");
         setCourseVideoInstructorName("");
         setCourseVideoInstructorImage([]);
+        setVideoName("");
+        setThumbnailName("");
+        setPreviewName("");
+        setInstructorImageName("");
+
+        props.setRefresh(prev => !prev);
+        props.setShowAV(false);
     }
 
     return (
         <div className="addVideo-back" style={props.showAV ? { display: "block" } : { display: "none" }}>
             <ToastContainer />
             <div className="addVideo-container">
-                <button className="addvideo-close-btn" onClick={() => { props.setShowAV(false); ClearForms(); }}><AiOutlineCloseCircle /></button>
+                <button className="addvideo-close-btn" onClick={CloseEditVideo}><AiOutlineCloseCircle /></button>
                 <div className="addVideo-content">
                     <div className="addvideo-inputarea">
                         <label>Category</label>
@@ -397,52 +430,6 @@ function EditVideo(props) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="addvideo-inputarea addvideo-addother">
-                        <label>What You Will Get?</label>
-                        {subHeadingSections1.map((sectionIndex) => (
-                            <div id={`section${sectionIndex}`} key={sectionIndex}>
-                                <div className="remove-section">
-                                    {subHeadingSections1.length > 1 && (
-                                        <button
-                                            onClick={() => {
-                                                const updatedSections = subHeadingSections1.filter((item) => item !== sectionIndex);
-                                                setSubHeadingSections1(updatedSections);
-
-                                                setTimeout(() => {
-                                                    const updatedInputs = courseVideoWhatYouWillGet.filter((_value, index) => index !== sectionIndex);
-                                                    setCourseVideoWhatYouWillGet(updatedInputs);
-                                                }, 0);
-                                            }}
-                                        ><AiOutlineClose /></button>
-                                    )}
-                                </div>
-                                <InputBar
-                                    type="text"
-                                    name={`courseVideoWhatYouWillGet${sectionIndex}`}
-                                    value={courseVideoWhatYouWillGet[sectionIndex] || ''}
-                                    handleInput={(event) => {
-                                        const updatedInputs = [...courseVideoWhatYouWillGet];
-                                        updatedInputs[sectionIndex] = event.target.value;
-                                        setCourseVideoWhatYouWillGet(updatedInputs);
-                                    }}
-                                />
-                            </div>
-                        ))}
-                        <div >
-                            <div>
-                                {subHeadingSections1.length < 3 && (
-                                    <button className="addvideo-addotherBtn" onClick={() => {
-                                        const newSectionIndex = subHeadingCount1 + 1;
-                                        setSubHeadingCount1(newSectionIndex);
-                                        setSubHeadingSections1([...subHeadingSections1, newSectionIndex]);
-                                        setCourseVideoWhatYouWillGet([...courseVideoWhatYouWillGet, ''])
-                                    }}>Add Other</button>
-                                )}
-
-                            </div>
-                        </div>
-                    </div> */}
-
 
                     <div className="addvideo-inputarea addvideo-addother">
                         <label>What You Will Get?</label>
@@ -677,10 +664,9 @@ function EditVideo(props) {
                     </div>
                     <div className="addvideo-buttons">
                         <button className="addvideo-saveBtn" onClick={handleSubmit}>Save</button>
-                        <button className="addvideo-cancelBtn" onClick={() => {
-                            props.setShowAV(false);
-                            ClearForms();
-                        }}>Cancel</button>
+                        <button className="addvideo-cancelBtn" onClick={
+                            CloseEditVideo
+                        }>Cancel</button>
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ import Blog from "../Pages/Blog/Blog";
 import Login from "../Pages/Login/Login";
 import Level1 from "../Pages/Level1/Level1";
 import Level2 from "../Pages/Level2/Level2";
+import Category from "../Pages/Category/Category";
 
 function GeneralRoutes() {
     return (
@@ -16,6 +17,7 @@ function GeneralRoutes() {
             <Route path="/" element={<Login />} />
             <Route path="/admin" element={<Home />} >
                 <Route path="dashboard" element={<h1>Dashboard</h1>} />
+                <Route path="category" element={<Category />} />
                 <Route path="users" element={<Users />} />
                 <Route path="accounts" element={<Accounts />} />
                 <Route path="level1" element={<Level1 />} />

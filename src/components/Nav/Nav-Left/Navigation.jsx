@@ -4,7 +4,7 @@ import logo from "../../../Images/logo.jpg";
 import ConfirmBox from "../../Useful/ConfirmationBox/ConfirmBox";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import { BiSolidDashboard, BiLogoBlogger, BiBookAlt } from "react-icons/bi";
+import { BiSolidDashboard, BiLogoBlogger, BiBookAlt, BiSolidCategory } from "react-icons/bi";
 import { HiUsers } from "react-icons/hi";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { SiCoursera } from "react-icons/si";
@@ -67,19 +67,23 @@ function Navigation() {
                         </div>
                     </div>
                     <div className={toggle ? "mid-nav" : "mid-nav-small"}>
-                        <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to="dashboard">
+                        {/* <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to="dashboard">
                             <BiSolidDashboard />
                             {toggle && (<span>Dashboard</span>)}
+                        </NavLink></div> */}
+                        <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"category"}>
+                            <BiSolidCategory />
+                            {toggle && (<span>Category</span>)}
                         </NavLink></div>
-                        <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"users"}>
+                        {/* <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"users"}>
                             <HiUsers />
                             {toggle && (<span>Users</span>)}
-                        </NavLink></div>
-                        <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"accounts"}>
+                        </NavLink></div> */}
+                        {/* <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"accounts"}>
                             <RiAccountBoxLine />
                             {toggle && (<span>Accounts</span>)}
-                        </NavLink></div>
-                        <div className="nav-link nav-course " onClick={showCourses}>
+                        </NavLink></div> */}
+                        {/* <div className="nav-link nav-course " onClick={showCourses}>
                             <NavLink to={"level1"}>
                                 <div className="course-left">
                                     <SiCoursera />
@@ -104,15 +108,15 @@ function Navigation() {
                                 </div>
                             </>
                         )
-                            : ""}
+                            : ""} */}
                         {/* <div className="nav-link"><NavLink to={"payments"}>
                             <MdPayment />
                             {toggle && (<span>Payments</span>)}
                         </NavLink></div> */}
-                        <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"feedback"}>
+                        {/* <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"feedback"}>
                             <VscFeedback />
                             {toggle && (<span>Feedback</span>)}
-                        </NavLink></div>
+                        </NavLink></div> */}
                         <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"blog"}>
                             <BiLogoBlogger />
                             {toggle && (<span>Blog</span>)}

@@ -90,9 +90,6 @@ function AddVideo(props) {
 
 
     function handleSubmit() {
-
-        console.log(courseVideo);
-
         const WhatYouWillGet = sections.map((item) => item.value);
         const Requirements = sections2.map((item) => item.value);
         const WhoIsThisFor = sections3.map((item) => item.value);

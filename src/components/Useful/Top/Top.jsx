@@ -39,9 +39,10 @@ function Top(props) {
                 </div>
                 {props.group ?
                     <div className="filter-group">
-                        {props.filters.map((names) => {
+                        {props.filters.map((names, index) => {
                             return (
                                 <div
+                                    key={index}
                                     className="group-button"
                                     onClick={() => props.setActiveC(names)}
                                     style={props.activeCourse === names ? { backgroundColor: "#01ACF1", color: "white" } : {}}

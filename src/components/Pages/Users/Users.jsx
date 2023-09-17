@@ -14,27 +14,7 @@ function Users() {
         {
             Header: "Name",
             accessor: "name"
-        },
-        {
-            Header: "Bio",
-            accessor: "bio"
-        },
-        {
-            Header: "Occupation",
-            accessor: "occupation"
-        },
-        {
-            Header: "Status",
-            accessor: "status"
-        },
-        {
-            Header: "Email",
-            accessor: "email"
-        },
-        {
-            Header: "Created Date",
-            accessor: "createdDate"
-        },
+        }
     ]
 
 
@@ -42,7 +22,7 @@ function Users() {
         <>
             <div className="users-container">
                 <Top
-                    title="User Details"
+                    title="Category"
                 />
                 <Table
                     COLUMNS={COLUMNS}

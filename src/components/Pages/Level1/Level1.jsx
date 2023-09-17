@@ -38,14 +38,14 @@ function Level1() {
                         ...item, shortDescription: descriptionWithEllipsis
                     }
                 })
-                console.log(UpdatedData)
+                // console.log(UpdatedData)
                 setCourseVideoData(UpdatedData);
                 setIsLoding(false);
             })
             .catch(err => console.log(err));
     }, [refresh])
 
-    function DeleteCourseData(id) {
+    function DeleteCourseData() {
         axios
             .delete(`http://localhost:4000/api/deleteCourseVideo/${deleteId}`, { withCredentials: true })
             .then(res => {
@@ -110,7 +110,8 @@ function Level1() {
                         showAV={showEditVid}
                         setShowAV={setShowEditVid}
                         editId={editId}
-                        refresh={setRefresh}
+                        refresh={refresh}
+                        setRefresh={setRefresh}
                     />
                 </>
                 : ""}

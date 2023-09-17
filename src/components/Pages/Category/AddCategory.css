@@ -1,0 +1,90 @@
+.addcategory-background {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+    transition: 1s;
+}
+
+.addcategory-container {
+    background-color: #EAECF0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    height: auto;
+    width: auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.close-btn-categoty {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    position: relative;
+    align-self: flex-end;
+    top: -15px;
+}
+
+.close-btn-categoty svg {
+    color: #BE4217;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.addcategory-title {
+    color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 24px;
+}
+
+.addcategory-midtext {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 24px;
+}
+
+.addcategory-container input {
+    padding: 0 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background: #EAECF0;
+    margin-bottom: 16px;
+}
+
+.addcategory-container input:hover,
+.addcategory-container input:focus {
+    border: 1px solid #F66E24;
+}
+
+.save-category-btn {
+    align-self: flex-end;
+}
+
+.save-category-btn button {
+    display: flex;
+    width: 85px;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-300, #D0D5DD);
+    background: #2DAA50;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    color: white;
+    cursor: pointer;
+}
