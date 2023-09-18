@@ -10,6 +10,7 @@ import Login from "../Pages/Login/Login";
 import Level1 from "../Pages/Level1/Level1";
 import Level2 from "../Pages/Level2/Level2";
 import Category from "../Pages/Category/Category";
+import AddBlog from "../Pages/Blog/AddBlog";
 
 function GeneralRoutes() {
     return (
@@ -25,6 +26,7 @@ function GeneralRoutes() {
                 <Route path="payments" element={<Payments />} />
                 <Route path="feedback" element={<Feedback />} />
                 <Route path="blog" element={<Blog />} />
+                <Route path="blog/addblog" element={<AddBlog />} />
             </Route>
         </Routes>
     );

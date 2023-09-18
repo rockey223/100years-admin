@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./AddCategory.css";
 import { InputBar } from "../../Tools/Input/Input";
 import { IoCloseSharp } from "react-icons/io5";
@@ -6,23 +6,36 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-function AddCategory(props) {
+function EditCategory(props) {
   const [categoryName, setCategoryName] = useState("");
   const API = `${process.env.REACT_APP_API}/api`;
+
+  useEffect(() => {
+    if (props.editId) {
+      axios
+        .get(`${API}/getOneCompanyBlogCategory/${props.editId}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setCategoryName(res.data.data.companyBlogCategoryName);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [props.editPop]);
 
   function handleCategorySubmit() {
     if (!categoryName) {
       toast.error("Please fill in all required fields");
     } else {
       axios
-        .post(
-          `${API}/postCompanyBlogCategory`,
+        .patch(
+          `${API}/updateCompanyBlogCategory/${props.editId}`,
           { companyBlogCategoryName: categoryName },
           { withCredentials: true }
         )
         .then((res) => {
           console.log(res);
-          toast.success("Blog Category Added");
+          toast.success("Blog Category Updated");
           closeAddCategory();
           props.refresh((prev) => !prev);
         })
@@ -31,14 +44,14 @@ function AddCategory(props) {
   }
 
   function closeAddCategory() {
-    props.setAdd(false);
+    props.setEdit(false);
     setCategoryName("");
   }
 
   return (
     <div
       className="addcategory-background"
-      style={props.addPop ? { display: "block" } : { display: "none" }}
+      style={props.editPop ? { display: "block" } : { display: "none" }}
     >
       <ToastContainer />
       <div className="addcategory-container">
@@ -65,4 +78,4 @@ function AddCategory(props) {
   );
 }
 
-export default AddCategory;
+export default EditCategory;

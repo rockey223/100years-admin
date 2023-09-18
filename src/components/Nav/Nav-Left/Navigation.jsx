@@ -73,7 +73,7 @@ function Navigation() {
                         </NavLink></div> */}
                         <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"category"}>
                             <BiSolidCategory />
-                            {toggle && (<span>Category</span>)}
+                            {toggle && (<span>Blog Category</span>)}
                         </NavLink></div>
                         {/* <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to={"users"}>
                             <HiUsers />
@@ -83,7 +83,7 @@ function Navigation() {
                             <RiAccountBoxLine />
                             {toggle && (<span>Accounts</span>)}
                         </NavLink></div> */}
-                        {/* <div className="nav-link nav-course " onClick={showCourses}>
+                        <div className="nav-link nav-course " onClick={showCourses}>
                             <NavLink to={"level1"}>
                                 <div className="course-left">
                                     <SiCoursera />
@@ -108,7 +108,7 @@ function Navigation() {
                                 </div>
                             </>
                         )
-                            : ""} */}
+                            : ""}
                         {/* <div className="nav-link"><NavLink to={"payments"}>
                             <MdPayment />
                             {toggle && (<span>Payments</span>)}
