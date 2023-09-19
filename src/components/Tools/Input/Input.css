@@ -13,6 +13,11 @@
 
 }
 
+.input-bar input:focus {
+    border: 1px solid #F66E24;
+    background-color: white;
+}
+
 
 
 /*------------------ Search Bar CSS -------------------------*/
@@ -63,4 +68,9 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.text-area textarea:focus {
+    border: 1px solid #F66E24;
+    background-color: white;
 }
