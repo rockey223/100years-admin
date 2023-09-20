@@ -108,6 +108,7 @@ function AddBlog() {
       )
       .then((res) => {
         ClearData();
+        toast.success(`Blog Added`);
       })
       .catch((err) => console.log(err));
   }

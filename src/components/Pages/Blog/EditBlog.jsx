@@ -13,6 +13,7 @@ import { useBlogContext } from "../../Useful/BlogContext";
 function EditBlog() {
   const [category, setCategory] = useState([]);
   const { editId, setEditId } = useBlogContext();
+  const [blogData, setBlogData] = useState([]);
 
   //Show Subtitle & Image Section
   const [showSubtitle1, setShowSubtitle1] = useState(false);
@@ -57,41 +58,38 @@ function EditBlog() {
       axios
         .get(`${API}/getOneCompanyBlog/${editId}`, { withCredentials: true })
         .then((res) => {
-          const BlogData = res.data.data;
-          const categoryId = BlogData.companyBlogCategory;
+          setBlogData(res.data.data);
+          const BData = res.data.data;
+          const categoryId = BData.companyBlogCategory;
           const categoryName = category
             .filter((item) => item._id === categoryId)
             .map((item) => item.companyBlogCategoryName);
           setBlogCategory(categoryName);
-          setBlogTitle(BlogData.companyBlogTitle);
-          setThumbnailURL(`${imageApi}/${BlogData.companyBlogThumbnail}`);
-          setBlogThumbnail([BlogData.companyBlogThumbnail]);
-          setBannerURL(`${imageApi}/${BlogData.companyBlogImage}`);
-          setBlogBanner([BlogData.companyBlogImage]);
-          setBlogDescription(BlogData.companyBlogContent);
-          if (BlogData.hasOwnProperty("companyBlogSubtitleOne")) {
-            setBlogSubtitle1(BlogData.companyBlogSubtitleOne);
+          setBlogTitle(BData.companyBlogTitle);
+          setThumbnailURL(`${imageApi}/${BData.companyBlogThumbnail}`);
+          setBlogThumbnail([BData.companyBlogThumbnail]);
+          setBannerURL(`${imageApi}/${BData.companyBlogImage}`);
+          setBlogBanner([BData.companyBlogImage]);
+          setBlogDescription(BData.companyBlogContent);
+          if (BData.hasOwnProperty("companyBlogSubtitleOne")) {
+            setBlogSubtitle1(BData.companyBlogSubtitleOne);
           }
-          if (BlogData.hasOwnProperty("companyBlogSubtitleOneContent")) {
-            setBlogSubDescription1(BlogData.companyBlogSubtitleOneContent);
+          if (BData.hasOwnProperty("companyBlogSubtitleOneContent")) {
+            setBlogSubDescription1(BData.companyBlogSubtitleOneContent);
           }
-          if (BlogData.hasOwnProperty(`companyBlogSubtitleOneImage`)) {
-            setSubImage1URL(
-              `${imageApi}/${BlogData.companyBlogSubtitleOneImage}`
-            );
+          if (BData.hasOwnProperty(`companyBlogSubtitleOneImage`)) {
+            setSubImage1URL(`${imageApi}/${BData.companyBlogSubtitleOneImage}`);
             setShowImage1(true);
           }
-          if (BlogData.hasOwnProperty("companyBlogSubtitleTwo")) {
-            setBlogSubtitle2(BlogData.companyBlogSubtitleTwo);
+          if (BData.hasOwnProperty("companyBlogSubtitleTwo")) {
+            setBlogSubtitle2(BData.companyBlogSubtitleTwo);
             setShowSubtitle2(true);
           }
-          if (BlogData.hasOwnProperty("companyBlogSubtitleTwoContent")) {
-            setBlogSubDescription2(BlogData.companyBlogSubtitleTwoContent);
+          if (BData.hasOwnProperty("companyBlogSubtitleTwoContent")) {
+            setBlogSubDescription2(BData.companyBlogSubtitleTwoContent);
           }
-          if (BlogData.hasOwnProperty(`companyBlogSubtitleTwoImage`)) {
-            setSubImage2URL(
-              `${imageApi}/${BlogData.companyBlogSubtitleTwoImage}`
-            );
+          if (BData.hasOwnProperty(`companyBlogSubtitleTwoImage`)) {
+            setSubImage2URL(`${imageApi}/${BData.companyBlogSubtitleTwoImage}`);
             setShowImage2(true);
           }
         })
@@ -147,6 +145,12 @@ function EditBlog() {
       .filter((item) => item.companyBlogCategoryName === blogCategory)
       .map((item) => item._id);
 
+    console.log(blogThumbnail[0]);
+    console.log(blogData.companyBlogThumbnail);
+
+    if (blogData.companyBlogThumbnail === blogThumbnail[0]) {
+    }
+
     axios
       .patch(
         `${API}/updateCompanyBlog/${editId}`,
@@ -154,20 +158,53 @@ function EditBlog() {
           companyBlogCategory: categoryId,
           companyBlogTitle: blogTitle,
           companyBlogContent: blogDescription,
-          companyBlogImage: blogThumbnail[0],
+
+          ...(blogData.companyBlogThumbnail === blogThumbnail[0]
+            ? {
+                companyBlogThumbnail: blogThumbnail[0],
+              }
+            : blogThumbnail.length > 0
+            ? {
+                companyBlogThumbnail: blogThumbnail[0],
+              }
+            : {}),
+          ...(blogData.companyBlogImage === blogBanner[0]
+            ? {
+                companyBlogImage: blogBanner[0],
+              }
+            : blogThumbnail.length > 0
+            ? {
+                companyBlogImage: blogBanner[0],
+              }
+            : {}),
+
           ...(blogSubtitle1 ? { companyBlogSubtitleOne: blogSubtitle1 } : {}),
           ...(blogSubDescription1
             ? { companyBlogSubtitleOneContent: blogSubDescription1 }
             : {}),
-          ...(blogSubImage1.length > 0
-            ? { companyBlogSubtitleOneImage: blogSubImage1[0] }
+
+          ...(blogData.companyBlogSubtitleOneImage === blogSubImage1[0]
+            ? {
+                companyBlogSubtitleOneImage: blogSubImage1[0],
+              }
+            : blogThumbnail.length > 0
+            ? {
+                companyBlogSubtitleOneImage: blogSubImage1[0],
+              }
             : {}),
+
           ...(blogSubtitle2 ? { companyBlogSubtitleTwo: blogSubtitle2 } : {}),
           ...(blogSubDescription2
             ? { companyBlogSubtitleTwoContent: blogSubDescription2 }
             : {}),
-          ...(blogSubImage2.length > 0
-            ? { companyBlogSubtitleTwoImage: blogSubImage2[0] }
+          ...(blogData.companyBlogSubtitleTwoImage === blogSubImage2[0]
+            ? {
+                companyBlogSubtitleTwoImage: blogSubImage2[0],
+              }
+            : blogThumbnail.length > 0
+            ? {
+                companyBlogSubtitleTwoImage: blogSubImage2[0],
+              }
             : {}),
         },
         {
@@ -177,6 +214,7 @@ function EditBlog() {
       )
       .then((res) => {
         ClearData();
+        toast.success(`Blog Updated`);
       })
       .catch((err) => console.log(err));
   }
@@ -193,6 +231,11 @@ function EditBlog() {
     setBlogSubtitle2("");
     setBlogSubDescription2("");
     setBlogSubImage2([]);
+    setBlogData([]);
+    setThumbnailURL("");
+    setBannerURL("");
+    setSubImage1URL("");
+    setSubImage2URL("");
 
     navigate(`/admin/blog`);
   }
