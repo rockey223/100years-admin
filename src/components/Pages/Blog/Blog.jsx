@@ -22,14 +22,35 @@ function Blog() {
     axios
       .get(`${API}/getAllCompanyBlog`, { withCredentials: true })
       .then((res) => {
-        const Videodata = res.data.data.map((item, index) => ({
+        const Blogdata = res.data.data.map((item, index) => ({
           ...item,
           sn: index + 1,
         }));
-        setData(Videodata);
+
+        const finalDate = Blogdata.map((item) => {
+          const dateStr = item.createDate;
+          const date = new Date(dateStr);
+          const options = {
+            timeZone: "Europe/London",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          };
+          const nepalTime = date.toLocaleString("en-US", options);
+          const onlyDate = nepalTime.split(",")[0].trim();
+
+          return {
+            ...item,
+            createdDate: onlyDate,
+          };
+        });
+
+        setData(finalDate);
       })
       .catch((err) => console.log(err));
-  });
+  }, [refresh]);
 
   function DeleteBlog() {
     axios
@@ -37,7 +58,7 @@ function Blog() {
         withCredentials: true,
       })
       .then(
-        toast.success(`Blog Deleted`),
+        toast.error(`Blog Deleted`),
         setShowConfirmBox(false),
         setRefresh((prev) => !prev)
       )
@@ -52,6 +73,10 @@ function Blog() {
     navigate("/admin/blog/editblog");
   }
 
+  function UpdateToast() {
+    toast.success(`Blog Updated`);
+  }
+
   const COLUMNS = [
     {
       Header: "SN",
@@ -63,12 +88,13 @@ function Blog() {
     },
     {
       Header: "Created Date",
-      accessor: "createdAt",
+      accessor: "createdDate",
     },
   ];
 
   return (
     <>
+      <ToastContainer />
       <ConfirmBox
         showC={showConfirmBox}
         message="Are you sure"

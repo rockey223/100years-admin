@@ -1,44 +1,43 @@
-* {}
+* {
+}
 
 .table-container {
-    width: 97%
+  width: 97%;
 }
 
 .table-container table {
-    width: 96%;
-    margin: 38px 0 0 25px;
-    border: none;
-    outline: none;
-    border-collapse: collapse;
+  width: 96%;
+  margin: 38px 0 0 25px;
+  border: none;
+  outline: none;
+  border-collapse: collapse;
 }
 
 .table-container thead {
-    background-color: #F9FAFB;
-    color: var(--gray-500, #667085);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 18px;
-    text-align: left;
+  background-color: #f9fafb;
+  color: var(--gray-500, #667085);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
 }
 
-
 .table-container th {
-    padding: 12px 24px;
+  padding: 12px 24px;
 }
 
 .table-container td {
-    padding: 26px 24px;
-    border-bottom: 1px solid var(--gray-200, #EAECF0);
-
+  padding: 26px 24px;
+  border-bottom: 1px solid var(--gray-200, #eaecf0);
 }
 
 .table-container tbody {
-    color: var(--gray-900, #101828);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
+  color: var(--gray-900, #101828);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
 }
 
 /* .dot-menu {
@@ -59,78 +58,95 @@
 } */
 
 .dot-menu {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    /* border: 1px solid #D9D5D5; */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid #D9D5D5; */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .update-btnpanel {
-    color: rgba(0, 0, 0, 0.80);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    padding: 10.5px;
-    width: 76.4px;
-    cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 10.5px;
+  width: 76.4px;
+  cursor: pointer;
 }
 
 .delete-btnpanel {
-    color: rgba(0, 0, 0, 0.80);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    padding: 10.5px;
-    width: 76.4px;
-    cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 10.5px;
+  width: 76.4px;
+  cursor: pointer;
 }
 
 .update-btnpanel:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .delete-btnpanel:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .panel-line {
-    background-color: var(--gray-200, #EAECF0);
-    height: 1px;
-    width: 90%;
+  background-color: var(--gray-200, #eaecf0);
+  height: 1px;
+  width: 90%;
 }
 
-.dotbtn {}
-
+.dotbtn {
+}
 
 .action-btn {
-    display: flex;
-    padding-top: 20px;
-    height: 37.6px;
-    width: 136.29;
+  display: flex;
+  padding-top: 20px;
+  height: 37.6px;
+  width: 136.29;
 }
 
 .action-btn button {
-    background-color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+tr:nth-child(even) .action-btn {
+  background-color: #f9fafbac;
+}
+
+tr:nth-child(odd) .action-btn {
+  background-color: #ffffff;
 }
 
 .del-can {
-    color: #F66E24;
-    width: 20px;
-    height: 25px;
-    margin-right: 20px;
+  color: #f66e24;
+  width: 20px;
+  height: 25px;
+  margin-right: 20px;
 }
 
 .edit-pen {
-    color: #2DAA50;
-    width: 20px;
-    height: 25px;
+  color: #2daa50;
+  width: 20px;
+  height: 25px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9fafbac; /* Use your desired background color */
+}
+
+/* Style for odd rows (2nd, 4th, 6th, etc.) */
+tr:nth-child(odd) {
+  background-color: white; /* Use your desired background color */
 }
