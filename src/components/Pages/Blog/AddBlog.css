@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   margin-top: 40px;
+  width: 80px;
 
   color: #000;
   font-size: 18px;
@@ -18,6 +19,10 @@
 .back-button svg {
   width: 24px;
   height: 24px;
+}
+
+.back-button:hover {
+  color: #f66e24;
 }
 
 .addblog-form-container {
@@ -54,7 +59,7 @@
   outline: none;
 }
 
-.input-area>select>option {
+.input-area > select > option {
   border-radius: 8px;
   background-color: white;
   padding: 5px;
@@ -103,8 +108,46 @@
   border: 1px dashed #3f3f46;
   border-radius: 5px;
   overflow: hidden;
-  width: 290px;
+  width: 300px;
+  height: 195px;
   background: #eaecf0;
+}
+
+.image-uploaded {
+  position: relative;
+  width: 300px;
+  height: 195px;
+  border: 1px dashed #3f3f46;
+  border-radius: 5px;
+}
+
+.image-uploaded img {
+  opacity: 70%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-uploaded button {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 90;
+
+  color: white;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26.8px;
+
+  border: none;
+  padding: 5px 20px;
+  opacity: 100%;
+  border-radius: 8px;
+  background: #f66e24;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: pointer;
 }
 
 .image-border input {

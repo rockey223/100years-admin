@@ -1,74 +1,75 @@
 .confirm-container {
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    z-index: 1;
-    background-color: rgba(0, 0, 0, 0.25);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .confirm-box {
-    background-color: #FFF;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 12px;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .message-area {
-    color: #2A6E89;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 50px;
+  color: #2a6e89;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 50px;
 }
 
 .confirm-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .confirm-cancel button {
-    display: inline-flex;
-    padding: 10px 16px;
-    align-items: flex-start;
-    gap: 16px;
+  display: inline-flex;
+  padding: 16px 24px;
+  align-items: flex-start;
+  gap: 16px;
 
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.15px);
-    background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.15px);
+  background: rgba(255, 255, 255, 0.85);
 
-    color: #3F3F46;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    cursor: pointer;
+  color: #3f3f46;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  cursor: pointer;
+  margin-right: 100px;
 }
 
 .confirm-yes button {
-    display: inline-flex;
-    padding: 10px 16px;
-    align-items: flex-start;
-    gap: 16px;
+  display: inline-flex;
+  padding: 16px 24px;
+  align-items: flex-start;
+  gap: 16px;
 
-    border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.20);
-    background: rgba(184, 35, 25, 0.90);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(184, 35, 25, 0.9);
 
-    color: rgba(255, 255, 255, 0.80);
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  cursor: pointer;
 }

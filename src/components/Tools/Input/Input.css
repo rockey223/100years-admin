@@ -1,76 +1,78 @@
 /*------------------ Input CSS --------------------------*/
 
 .input-bar input {
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.50);
-    outline: none;
-    display: flex;
-    padding: 14px 0 14px 19px;
-    justify-content: center;
-    align-items: center;
-    gap: 111px;
-    flex-shrink: 0;
-
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  outline: none;
+  display: flex;
+  padding: 14px 0 14px 19px;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaecf0;
+  gap: 111px;
+  flex-shrink: 0;
 }
 
 .input-bar input:focus {
-    border: 1px solid #F66E24;
-    background-color: white;
+  border: 1px solid #f66e24;
+  background-color: white;
 }
 
-
+.input-bar input:after {
+  background-color: white;
+}
 
 /*------------------ Search Bar CSS -------------------------*/
 .search-bar {
-    display: flex;
-    flex-direction: row;
-    padding: 10px 14px;
-    align-items: center;
-    height: 24px;
-    width: 372px;
-    border-radius: 8px;
-    border: 1px solid var(--gray-300, #D0D5DD);
-    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  display: flex;
+  flex-direction: row;
+  padding: 10px 14px;
+  align-items: center;
+  height: 24px;
+  width: 372px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-300, #d0d5dd);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
 
 .search-bar svg {
-    color: #667085;
-    width: 20px;
-    height: 20px;
+  color: #667085;
+  width: 20px;
+  height: 20px;
 }
 
 .search-bar input {
-    background-color: white;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
+  background-color: white;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 /*------------------ Text Area CSS -------------------------*/
 
 .text-area textarea {
-    display: flex;
-    padding: 20px 80px 10px 30px;
-    justify-content: center;
-    align-items: center;
-    gap: 111px;
-    resize: none;
-    outline: none;
+  display: flex;
+  padding: 20px 80px 10px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 111px;
+  resize: none;
+  outline: none;
 
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.50);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 
-    color: #3F3F46;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+  color: #3f3f46;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .text-area textarea:focus {
-    border: 1px solid #F66E24;
-    background-color: white;
+  border: 1px solid #f66e24;
+  background-color: white;
 }

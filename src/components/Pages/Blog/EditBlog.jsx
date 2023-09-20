@@ -8,9 +8,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useBlogContext } from "../../Useful/BlogContext";
 
-function AddBlog() {
+function EditBlog() {
   const [category, setCategory] = useState([]);
+  const { editId, setEditId } = useBlogContext();
 
   //Show Subtitle & Image Section
   const [showSubtitle1, setShowSubtitle1] = useState(false);
@@ -30,8 +32,13 @@ function AddBlog() {
   const [blogSubtitle2, setBlogSubtitle2] = useState("");
   const [blogSubDescription2, setBlogSubDescription2] = useState("");
   const [blogSubImage2, setBlogSubImage2] = useState([]);
+  const [thumbnailURL, setThumbnailURL] = useState("");
+  const [bannerURL, setBannerURL] = useState("");
+  const [subImage1URL, setSubImage1URL] = useState("");
+  const [subImage2URL, setSubImage2URL] = useState("");
 
   const API = `${process.env.REACT_APP_API}/api`;
+  const imageApi = `${process.env.REACT_APP_API}/imageUploads`;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,24 +48,87 @@ function AddBlog() {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
+
+  useEffect(() => {
+    if (editId) {
+      axios
+        .get(`${API}/getOneCompanyBlog/${editId}`, { withCredentials: true })
+        .then((res) => {
+          const BlogData = res.data.data;
+          const categoryId = BlogData.companyBlogCategory;
+          const categoryName = category
+            .filter((item) => item._id === categoryId)
+            .map((item) => item.companyBlogCategoryName);
+          setBlogCategory(categoryName);
+          setBlogTitle(BlogData.companyBlogTitle);
+          setThumbnailURL(`${imageApi}/${BlogData.companyBlogThumbnail}`);
+          setBlogThumbnail([BlogData.companyBlogThumbnail]);
+          setBannerURL(`${imageApi}/${BlogData.companyBlogImage}`);
+          setBlogBanner([BlogData.companyBlogImage]);
+          setBlogDescription(BlogData.companyBlogContent);
+          if (BlogData.hasOwnProperty("companyBlogSubtitleOne")) {
+            setBlogSubtitle1(BlogData.companyBlogSubtitleOne);
+          }
+          if (BlogData.hasOwnProperty("companyBlogSubtitleOneContent")) {
+            setBlogSubDescription1(BlogData.companyBlogSubtitleOneContent);
+          }
+          if (BlogData.hasOwnProperty(`companyBlogSubtitleOneImage`)) {
+            setSubImage1URL(
+              `${imageApi}/${BlogData.companyBlogSubtitleOneImage}`
+            );
+            setShowImage1(true);
+          }
+          if (BlogData.hasOwnProperty("companyBlogSubtitleTwo")) {
+            setBlogSubtitle2(BlogData.companyBlogSubtitleTwo);
+            setShowSubtitle2(true);
+          }
+          if (BlogData.hasOwnProperty("companyBlogSubtitleTwoContent")) {
+            setBlogSubDescription2(BlogData.companyBlogSubtitleTwoContent);
+          }
+          if (BlogData.hasOwnProperty(`companyBlogSubtitleTwoImage`)) {
+            setSubImage2URL(
+              `${imageApi}/${BlogData.companyBlogSubtitleTwoImage}`
+            );
+            setShowImage2(true);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [editId, category]);
+
   function handleThumbnail(event) {
     const image = Array.from(event.target.files);
     setBlogThumbnail(image);
+
+    const url = URL.createObjectURL(image[0]);
+    setThumbnailURL(url);
   }
 
   function handleBanner(event) {
     const image = Array.from(event.target.files);
     setBlogBanner(image);
+
+    const url = URL.createObjectURL(image[0]);
+    setBannerURL(url);
   }
 
   function handleImage1(event) {
     const image = Array.from(event.target.files);
     setBlogSubImage1(image);
+
+    const url = URL.createObjectURL(image[0]);
+    setSubImage1URL(url);
   }
 
   function handleImage2(event) {
     const image = Array.from(event.target.files);
     setBlogSubImage2(image);
+
+    const url = URL.createObjectURL(image[0]);
+    setSubImage2URL(url);
   }
 
   function handleSubmit() {
@@ -78,14 +148,13 @@ function AddBlog() {
       .map((item) => item._id);
 
     axios
-      .post(
-        `${API}/postCompanyBlog`,
+      .patch(
+        `${API}/updateCompanyBlog/${editId}`,
         {
           companyBlogCategory: categoryId,
           companyBlogTitle: blogTitle,
           companyBlogContent: blogDescription,
-          companyBlogThumbnail: blogThumbnail[0],
-          companyBlogImage: blogBanner[0],
+          companyBlogImage: blogThumbnail[0],
           ...(blogSubtitle1 ? { companyBlogSubtitleOne: blogSubtitle1 } : {}),
           ...(blogSubDescription1
             ? { companyBlogSubtitleOneContent: blogSubDescription1 }
@@ -131,7 +200,7 @@ function AddBlog() {
   return (
     <div className="add-blog-container">
       <ToastContainer />
-      <div className="title-top">Add Blog</div>
+      <div className="title-top">Edit Blog</div>
       <div className="back-button" onClick={ClearData}>
         <IoIosArrowBack /> <span>Back</span>
       </div>
@@ -143,13 +212,20 @@ function AddBlog() {
           </label>
           <select
             value={blogCategory}
+            style={
+              blogCategory === "Select Category"
+                ? { backgroundColor: "#eaecf0" }
+                : { backgroundColor: "white" }
+            }
             onChange={(event) => setBlogCategory(event.target.value)}
           >
             <option>Select Category</option>
             {category.map((item) => {
               return (
                 <>
-                  <option key={item._id}>{item.companyBlogCategoryName}</option>
+                  <option key={item._id} value={item.companyBlogCategoryName}>
+                    {item.companyBlogCategoryName}
+                  </option>
                 </>
               );
             })}
@@ -174,7 +250,7 @@ function AddBlog() {
           <div className="image-input">
             <div className="image-left">
               <div className="left-title">Upload Thumbnail</div>
-              {blogThumbnail.length === 0 ? (
+              {blogThumbnail.length === 0 && !thumbnailURL ? (
                 <div className="image-border">
                   <label>
                     <input
@@ -197,21 +273,18 @@ function AddBlog() {
                   <button
                     onClick={() => {
                       setBlogThumbnail([]);
+                      setThumbnailURL("");
                     }}
                   >
                     Remove
                   </button>
-                  <img
-                    src={URL.createObjectURL(blogThumbnail[0])}
-                    height={"195px"}
-                    width={"300px"}
-                  />
+                  <img src={thumbnailURL} height={"195px"} width={"300px"} />
                 </div>
               )}
             </div>
             <div className="image-right">
               <div className="left-title">Upload Banner Image</div>
-              {blogBanner.length === 0 ? (
+              {blogBanner.length === 0 && !bannerURL ? (
                 <div className="image-border">
                   <label>
                     <input
@@ -234,15 +307,12 @@ function AddBlog() {
                   <button
                     onClick={() => {
                       setBlogBanner([]);
+                      setBannerURL("");
                     }}
                   >
                     Remove
                   </button>
-                  <img
-                    src={URL.createObjectURL(blogBanner[0])}
-                    height={"195px"}
-                    width={"300px"}
-                  />
+                  <img src={bannerURL} height={"195px"} width={"300px"} />
                 </div>
               )}
             </div>
@@ -260,7 +330,7 @@ function AddBlog() {
           />
         </div>
 
-        {!showSubtitle1 ? (
+        {!showSubtitle1 && !blogSubtitle1 ? (
           <div className="add-sub-content-button">
             <button
               onClick={() => {
@@ -325,7 +395,7 @@ function AddBlog() {
                 </div>
                 <div className="image-input">
                   <div className="image-left">
-                    {blogSubImage1.length === 0 ? (
+                    {blogSubImage1.length === 0 && !subImage1URL ? (
                       <div className="image-border">
                         <label>
                           <input
@@ -350,12 +420,13 @@ function AddBlog() {
                         <button
                           onClick={() => {
                             setBlogSubImage1([]);
+                            setSubImage1URL("");
                           }}
                         >
                           Remove
                         </button>
                         <img
-                          src={URL.createObjectURL(blogSubImage1[0])}
+                          src={subImage1URL}
                           height={"195px"}
                           width={"300px"}
                         />
@@ -432,7 +503,7 @@ function AddBlog() {
                 </div>
                 <div className="image-input">
                   <div className="image-left">
-                    {blogSubImage2.length === 0 ? (
+                    {blogSubImage2.length === 0 && !subImage2URL ? (
                       <div className="image-border">
                         <label>
                           <input
@@ -457,12 +528,13 @@ function AddBlog() {
                         <button
                           onClick={() => {
                             setBlogSubImage2([]);
+                            setSubImage2URL("");
                           }}
                         >
                           Remove
                         </button>
                         <img
-                          src={URL.createObjectURL(blogSubImage2[0])}
+                          src={subImage2URL}
                           height={"195px"}
                           width={"300px"}
                         />
@@ -487,4 +559,4 @@ function AddBlog() {
   );
 }
 
-export default AddBlog;
+export default EditBlog;
