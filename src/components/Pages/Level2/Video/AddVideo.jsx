@@ -181,7 +181,7 @@ function AddVideo(props) {
     }
 
     return (
-        <div className="addVideo-back" style={props.showAV ? { display: "block" } : { display: "none" }}>
+        <div className="addVideo-back" style={props.showAV ? { display: "block" } : { display: "block" }}>
             <ToastContainer />
             <div className="addVideo-container">
                 <button className="addvideo-close-btn" onClick={() => { props.setShowAV(false); ClearForms(); }}><AiOutlineCloseCircle /></button>

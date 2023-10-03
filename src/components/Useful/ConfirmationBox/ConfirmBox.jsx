@@ -10,7 +10,7 @@ function ConfirmBox(props) {
       <div className="confirm-box">
         <div className="message-area">
           {props.message}{" "}
-          {!props.notex ? <span style={{ color: "red" }}>!</span> : ""}
+          {/* {!props.notex ? <span style={{ color: "red" }}>!</span> : ""} */}
         </div>
         <div className="confirm-buttons">
           <div className="confirm-cancel">

@@ -161,22 +161,22 @@ function EditBlog() {
 
           ...(blogData.companyBlogThumbnail === blogThumbnail[0]
             ? {
-                companyBlogThumbnail: blogThumbnail[0],
-              }
+              companyBlogThumbnail: blogThumbnail[0],
+            }
             : blogThumbnail.length > 0
-            ? {
+              ? {
                 companyBlogThumbnail: blogThumbnail[0],
               }
-            : {}),
+              : {}),
           ...(blogData.companyBlogImage === blogBanner[0]
             ? {
-                companyBlogImage: blogBanner[0],
-              }
+              companyBlogImage: blogBanner[0],
+            }
             : blogThumbnail.length > 0
-            ? {
+              ? {
                 companyBlogImage: blogBanner[0],
               }
-            : {}),
+              : {}),
 
           ...(blogSubtitle1 ? { companyBlogSubtitleOne: blogSubtitle1 } : {}),
           ...(blogSubDescription1
@@ -185,13 +185,13 @@ function EditBlog() {
 
           ...(blogData.companyBlogSubtitleOneImage === blogSubImage1[0]
             ? {
-                companyBlogSubtitleOneImage: blogSubImage1[0],
-              }
+              companyBlogSubtitleOneImage: blogSubImage1[0],
+            }
             : blogThumbnail.length > 0
-            ? {
+              ? {
                 companyBlogSubtitleOneImage: blogSubImage1[0],
               }
-            : {}),
+              : {}),
 
           ...(blogSubtitle2 ? { companyBlogSubtitleTwo: blogSubtitle2 } : {}),
           ...(blogSubDescription2
@@ -199,13 +199,13 @@ function EditBlog() {
             : {}),
           ...(blogData.companyBlogSubtitleTwoImage === blogSubImage2[0]
             ? {
-                companyBlogSubtitleTwoImage: blogSubImage2[0],
-              }
+              companyBlogSubtitleTwoImage: blogSubImage2[0],
+            }
             : blogThumbnail.length > 0
-            ? {
+              ? {
                 companyBlogSubtitleTwoImage: blogSubImage2[0],
               }
-            : {}),
+              : {}),
         },
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -486,9 +486,6 @@ function EditBlog() {
             <button
               onClick={() => {
                 setShowSubtitle2(true);
-                setBlogSubtitle2("");
-                setBlogSubDescription2("");
-                setBlogSubImage2([]);
               }}
             >
               Add Sub Content
@@ -502,6 +499,9 @@ function EditBlog() {
                 <AiOutlineMinusCircle
                   onClick={() => {
                     setShowSubtitle2(false);
+                    setBlogSubtitle2("");
+                    setBlogSubDescription2("");
+                    setBlogSubImage2([]);
                   }}
                 />
               </div>

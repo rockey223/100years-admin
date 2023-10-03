@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Top from "../../Useful/Top/Top";
 import Table from "../../Table/BasicTable";
-import AddVideo from "./Video/AddVideo";
+// import AddVideo from "./Video/AddVideo";
 import AddArticle from "./Article/AddArticle";
 import AddPodcast from "./Podcast/AddPodcast";
 import ConfirmBox from "../../Useful/ConfirmationBox/ConfirmBox";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import EditVideo from "./Video/EditVideo";
+// import EditVideo from "./Video/EditVideo";
 
 function Level1() {
 
@@ -101,18 +101,18 @@ function Level1() {
             />
             {activeCourse === 'Video' ?
                 <>
-                    <AddVideo
+                    {/* <AddVideo
                         showAV={showAddVid}
                         setShowAV={setShowAddVid}
                         refresh={setRefresh}
-                    />
-                    <EditVideo
+                    /> */}
+                    {/* <EditVideo
                         showAV={showEditVid}
                         setShowAV={setShowEditVid}
                         editId={editId}
                         refresh={refresh}
                         setRefresh={setRefresh}
-                    />
+                    /> */}
                 </>
                 : ""}
             {activeCourse === 'Article' ?
