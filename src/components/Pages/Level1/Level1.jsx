@@ -132,6 +132,7 @@ function Level1() {
                 add={true}
                 group={true}
                 filters={["Video", "Article", "Podcast", "Blog"]}
+                AddBtn={`/admin/level1/addvideo`}
                 setAdd={setShowAddVid}
                 activeCourse={activeCourse}
                 setActiveC={setActiveCourse}
@@ -147,6 +148,7 @@ function Level1() {
                     deleteId={setDeleteId}
                     setShowC={setShowConfirmBox}
                     setShowEV={setShowEditVid}
+                    activeCourse={activeCourse}
                 />
             )}
         </div>

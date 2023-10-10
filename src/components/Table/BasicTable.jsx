@@ -1,10 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTable } from "react-table";
 import "./BasicTable.css";
+import { useMainContext } from "../Useful/MainContext";
 
 import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 function BasicTable(props) {
+
+  const { setVideoId1 } = useMainContext();
+  const navigate = useNavigate();
+
   const tableInstance = useTable({
     columns: useMemo(() => props.COLUMNS, []),
     data: useMemo(() => props.DATA, [props.DATA]),
@@ -14,8 +20,15 @@ function BasicTable(props) {
     tableInstance;
 
   function handleEditClick(id) {
-    props.editId(id);
-    props.setShowEV(true);
+    if (props.activeCourse === 'Video') {
+      setVideoId1(id);
+      navigate(`/admin/level1/editvideo`);
+    }
+    else {
+      props.editId(id);
+      props.setShowEV(true);
+    }
+
   }
 
   function handleDeleteClick(id) {
@@ -57,8 +70,8 @@ function BasicTable(props) {
                         cellValue === "Paid"
                           ? "statusPaid"
                           : cellValue === "Unpaid"
-                          ? "statusUnpaid"
-                          : ""
+                            ? "statusUnpaid"
+                            : ""
                       }
                     >
                       <span>{cell.render("Cell")}</span>

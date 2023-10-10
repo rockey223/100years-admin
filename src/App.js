@@ -1,14 +1,14 @@
 import GeneralRoutes from "./components/Main/GeneralRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
-import { BlogProvider } from "./components/Useful/BlogContext";
+import { MainProvider } from "./components/Useful/MainContext";
 
 function App() {
   return (
-    <BlogProvider>
+    <MainProvider>
       <Router>
         <GeneralRoutes />
       </Router>
-    </BlogProvider>
+    </MainProvider>
   );
 }
 

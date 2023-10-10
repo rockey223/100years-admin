@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useBlogContext } from "../../Useful/BlogContext";
+import { useMainContext } from "../../Useful/MainContext";
 
 function Blog() {
   const [DATA, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [showConfirmBox, setShowConfirmBox] = useState(false);
   const [deleteId, setDeleteId] = useState("");
-  const { setEditId } = useBlogContext();
+  const { setEditId } = useMainContext();
   const API = `${process.env.REACT_APP_API}/api`;
   const navigate = useNavigate();
 

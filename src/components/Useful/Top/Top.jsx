@@ -3,8 +3,20 @@ import { SearchInput } from "../../Tools/Input/Input";
 import "./Top.css";
 
 import { BiFilter, BiCloudUpload, BiPlus } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function Top(props) {
+
+  const navigate = useNavigate();
+
+  function handleAddBtn() {
+    if (props.activeCourse === 'Video') {
+      navigate(props.AddBtn);
+    }
+    else {
+      props.setAdd(true)
+    }
+  }
   return (
     <>
       <div className="top-conatiner">
@@ -27,7 +39,7 @@ function Top(props) {
                             Export
                         </div> */}
             {props.add ? (
-              <div className="add-button" onClick={() => props.setAdd(true)}>
+              <div className="add-button" onClick={handleAddBtn}>
                 <BiPlus />
                 Add
               </div>

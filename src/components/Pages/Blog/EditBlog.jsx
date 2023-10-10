@@ -8,11 +8,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useBlogContext } from "../../Useful/BlogContext";
+import { useMainContext } from "../../Useful/MainContext";
 
 function EditBlog() {
   const [category, setCategory] = useState([]);
-  const { editId, setEditId } = useBlogContext();
+  const { editId, setEditId } = useMainContext();
   const [blogData, setBlogData] = useState([]);
 
   //Show Subtitle & Image Section
@@ -50,10 +50,6 @@ function EditBlog() {
   }, []);
 
   useEffect(() => {
-    console.log(category);
-  }, [category]);
-
-  useEffect(() => {
     if (editId) {
       axios
         .get(`${API}/getOneCompanyBlog/${editId}`, { withCredentials: true })
@@ -61,6 +57,7 @@ function EditBlog() {
           setBlogData(res.data.data);
           const BData = res.data.data;
           const categoryId = BData.companyBlogCategory;
+          // console.log(categoryId)
           const categoryName = category
             .filter((item) => item._id === categoryId)
             .map((item) => item.companyBlogCategoryName);
@@ -145,11 +142,11 @@ function EditBlog() {
       .filter((item) => item.companyBlogCategoryName === blogCategory)
       .map((item) => item._id);
 
-    console.log(blogThumbnail[0]);
-    console.log(blogData.companyBlogThumbnail);
+    // console.log(blogThumbnail[0]);
+    // console.log(blogData.companyBlogThumbnail);
 
-    if (blogData.companyBlogThumbnail === blogThumbnail[0]) {
-    }
+    // if (blogData.companyBlogThumbnail === blogThumbnail[0]) {
+    // }
 
     axios
       .patch(
@@ -215,6 +212,7 @@ function EditBlog() {
       .then((res) => {
         ClearData();
         toast.success(`Blog Updated`);
+        console.log(res)
       })
       .catch((err) => console.log(err));
   }

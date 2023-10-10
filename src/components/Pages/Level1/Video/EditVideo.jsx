@@ -6,15 +6,22 @@ import { RxCrossCircled } from "react-icons/rx"
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useMainContext } from "../../../Useful/MainContext";
 
-function AddVideo() {
+
+function EditVideo() {
+
+    const { videoId1 } = useMainContext();
 
     const [categoryData, setCategoryData] = useState([]);
     const [category, setCategory] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
     const [videoThumbnail, setVideoThumbnail] = useState([]);
+    const [videoThumbnailURL, setVideoThumbnailURL] = useState("");
     const [previewVideo, setPreviewVideo] = useState([]);
+    const [previewVideoURL, setPreviewVideoURL] = useState("");
     const [fullVideo, setFullVideo] = useState([]);
+    const [fullVideoURL, setFullVideoURL] = useState("");
     const [whatGet, setWhatGet] = useState([{ id: 1, value: "" }])
     const [reqSec, setReqSec] = useState([{ id: 1, value: "" }])
     const [whoFor, setWhoFor] = useState([{ id: 1, value: "" }])
@@ -22,8 +29,10 @@ function AddVideo() {
     const [aboutCourse, setAboutCourse] = useState([{ id: 1, value: "" }])
     const [instructorName, setInstructorName] = useState("")
     const [instructorImage, setInstructorImage] = useState([]);
+    const [instructorImageURL, setInstructorImageURL] = useState("");
 
     const API = `${process.env.REACT_APP_API}/api`;
+    const imageApi = `${process.env.REACT_APP_API}/mediaUploads`;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,6 +41,41 @@ function AddVideo() {
             .then((res) => setCategoryData(res.data.data))
             .catch((err) => console.log(err));
     }, []);
+
+    useEffect(() => {
+        if (videoId1) {
+            axios
+                .get(`${API}/getOneCourseVideo/${videoId1}`, { withCredentials: true })
+                .then(res => {
+                    const videoData = res.data.data;
+
+                    let catId = videoData.courseVideoCategory;
+                    const categoryNow = categoryData
+                        .filter((item) => item._id === catId)
+                        .map((item) => item.companyBlogCategoryName);
+
+                    console.log(categoryData);
+
+                    setCategory(categoryNow);
+                    setVideoTitle(videoData.courseVideoTitle);
+                    setVideoThumbnail(videoData.courseVideoThumbnail);
+                    setVideoThumbnailURL(`${imageApi}/${videoData.courseVideoThumbnail}`)
+                    setPreviewVideo(videoData.courseVideoPreview);
+                    setPreviewVideoURL(`${imageApi}/${videoData.courseVideoPreview}`)
+                    setFullVideo(videoData.courseVideo);
+                    setFullVideoURL(`${imageApi}/${videoData.courseVideo}`);
+                    setWhatGet(videoData.courseVideoWhatYouWillGet.map((item, index) => ({ id: index + 1, value: item })));
+                    setReqSec(videoData.courseVideoRequirements.map((item, index) => ({ id: index + 1, value: item })));
+                    setWhoFor(videoData.courseVideoWhoIsThisFor.map((item, index) => ({ id: index + 1, value: item })));
+                    setVideoDescription(videoData.courseVideoDescription);
+                    setAboutCourse(videoData.courseVideoAboutThisCourse.map((item, index) => ({ id: index + 1, value: item })));
+                    setInstructorName(videoData.courseVideoInstructorName);
+                    setInstructorImage(videoData.courseVideoInstructorImage);
+                    setInstructorImageURL(`${imageApi}/${videoData.courseVideoInstructorImage}`);
+                })
+                .catch(err => console.log(err));
+        }
+    }, [videoId1, categoryData])
 
     function handleWhatGetInputChange(id, value) {
         const updatedInputBars = whatGet.map((inputBar) =>
@@ -64,23 +108,35 @@ function AddVideo() {
     function handleThumbnail(event) {
         const image = Array.from(event.target.files);
         setVideoThumbnail(image);
+
+        const url = URL.createObjectURL(image[0]);
+        setVideoThumbnailURL(url);
     }
 
     function handlePreview(event) {
         const video = Array.from(event.target.files);
         setPreviewVideo(video);
         console.log(video)
+
+        const url = URL.createObjectURL(video[0]);
+        setPreviewVideoURL(url);
     }
 
 
     function handleFullVideo(event) {
         const video = Array.from(event.target.files);
         setFullVideo(video);
+
+        const url = URL.createObjectURL(video[0]);
+        setFullVideoURL(url);
     }
 
     function handleInstructorImage(event) {
         const image = Array.from(event.target.files);
         setInstructorImage(image);
+
+        const url = URL.createObjectURL(image[0]);
+        setInstructorImageURL(url);
     }
 
     function handleSubmit() {
@@ -132,7 +188,7 @@ function AddVideo() {
 
     return (
         <div className="add-video-container">
-            <div className="title-top">Add Video Level 1</div>
+            <div className="title-top">Edit Video Level 1</div>
             {/* <div className="back-button" onClick={ClearData}>
                 <IoIosArrowBack /> <span>Back</span>
             </div> */}
@@ -201,12 +257,13 @@ function AddVideo() {
                                     <button
                                         onClick={() => {
                                             setVideoThumbnail([]);
+                                            setVideoThumbnailURL("");
                                         }}
                                     >
                                         Remove
                                     </button>
                                     <img
-                                        src={URL.createObjectURL(videoThumbnail[0])}
+                                        src={videoThumbnailURL}
                                         height={"195px"}
                                         width={"300px"}
                                     />
@@ -238,12 +295,13 @@ function AddVideo() {
                                     <button
                                         onClick={() => {
                                             setPreviewVideo([]);
+                                            setPreviewVideoURL("");
                                         }}
                                     >
                                         Remove
                                     </button>
                                     <video width="300px" height="195px">
-                                        <source src={URL.createObjectURL(previewVideo[0])} type="video/mp4" />
+                                        <source src={previewVideoURL} type="video/mp4" />
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -283,12 +341,13 @@ function AddVideo() {
                                     <button
                                         onClick={() => {
                                             setFullVideo([]);
+                                            setFullVideoURL("");
                                         }}
                                     >
                                         Remove
                                     </button>
                                     <video width="300px" height="195px">
-                                        <source src={URL.createObjectURL(fullVideo[0])} type="video/mp4" />
+                                        <source src={fullVideoURL} type="video/mp4" />
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -488,12 +547,13 @@ function AddVideo() {
                                     <button
                                         onClick={() => {
                                             setInstructorImage([]);
+                                            setInstructorImageURL("");
                                         }}
                                     >
                                         Remove
                                     </button>
                                     <img
-                                        src={URL.createObjectURL(instructorImage[0])}
+                                        src={instructorImageURL}
                                         height={"195px"}
                                         width={"300px"}
                                     />
@@ -516,4 +576,4 @@ function AddVideo() {
     );
 }
 
-export default AddVideo;
+export default EditVideo;

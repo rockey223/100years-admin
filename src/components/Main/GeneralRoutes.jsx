@@ -13,6 +13,7 @@ import Category from "../Pages/Category/Category";
 import AddBlog from "../Pages/Blog/AddBlog";
 import EditBlog from "../Pages/Blog/EditBlog";
 import AddVideo from "../Pages/Level1/Video/AddVideo";
+import EditVideo from "../Pages/Level1/Video/EditVideo";
 
 function GeneralRoutes() {
   return (
@@ -31,6 +32,7 @@ function GeneralRoutes() {
         <Route path="blog/addblog" element={<AddBlog />} />
         <Route path="blog/editblog" element={<EditBlog />} />
         <Route path="level1/addvideo" element={<AddVideo />} />
+        <Route path="level1/editvideo" element={<EditVideo />} />
       </Route>
     </Routes>
   );
