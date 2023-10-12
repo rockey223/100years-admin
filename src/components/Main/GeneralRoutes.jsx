@@ -14,13 +14,14 @@ import AddBlog from "../Pages/Blog/AddBlog";
 import EditBlog from "../Pages/Blog/EditBlog";
 import AddVideo from "../Pages/Level1/Video/AddVideo";
 import EditVideo from "../Pages/Level1/Video/EditVideo";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 function GeneralRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/admin" element={<Home />}>
-        <Route path="dashboard" element={<h1>Dashboard</h1>} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="category" element={<Category />} />
         <Route path="users" element={<Users />} />
         <Route path="accounts" element={<Accounts />} />

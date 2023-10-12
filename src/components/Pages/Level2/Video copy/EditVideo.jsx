@@ -10,7 +10,8 @@ import { useMainContext } from "../../../Useful/MainContext";
 
 function EditVideo() {
   const { videoId1 } = useMainContext();
-  const [videodata, setVideodata] = useState([]);
+
+  const [categoryData, setCategoryData] = useState([]);
   const [category, setCategory] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
   const [videoThumbnail, setVideoThumbnail] = useState([]);
@@ -33,14 +34,27 @@ function EditVideo() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    axios
+      .get(`${API}/getAllCompanyBlogCategory`, { withCredentials: true })
+      .then((res) => setCategoryData(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
     if (videoId1) {
       axios
         .get(`${API}/getOneCourseVideo/${videoId1}`, { withCredentials: true })
         .then((res) => {
           const videoData = res.data.data;
-          setVideodata(res.data.data);
 
-          setCategory(videoData.courseVideoCategory);
+          let catId = videoData.courseVideoCategory;
+          const categoryNow = categoryData
+            .filter((item) => item._id === catId)
+            .map((item) => item.companyBlogCategoryName);
+
+          //   console.log(categoryData);
+
+          setCategory(categoryNow);
           setVideoTitle(videoData.courseVideoTitle);
           setVideoThumbnail(videoData.courseVideoThumbnail);
           setVideoThumbnailURL(`${imageApi}/${videoData.courseVideoThumbnail}`);
@@ -81,7 +95,7 @@ function EditVideo() {
         })
         .catch((err) => console.log(err));
     }
-  }, [videoId1]);
+  }, [videoId1, categoryData]);
 
   function handleWhatGetInputChange(id, value) {
     const updatedInputBars = whatGet.map((inputBar) =>
@@ -113,18 +127,10 @@ function EditVideo() {
 
   function handleThumbnail(event) {
     const image = Array.from(event.target.files);
+    setVideoThumbnail(image);
 
-    const maxSize = 104857600;
-
-    if (image[0].size > maxSize) {
-      toast.error(`Max file size: 100MB!`);
-      event.target.value = null;
-    } else {
-      setVideoThumbnail(image);
-
-      const url = URL.createObjectURL(image[0]);
-      setVideoThumbnailURL(url);
-    }
+    const url = URL.createObjectURL(image[0]);
+    setVideoThumbnailURL(url);
   }
 
   function handlePreview(event) {
@@ -182,11 +188,16 @@ function EditVideo() {
       return;
     }
 
+    const categoryId = categoryData
+      .filter((item) => item.companyBlogCategoryName === category)
+      .map((item) => item._id)
+      .join(",");
+
     axios
       .patch(
         `${API}/updateCourseVideo/${videoId1}`,
         {
-          courseVideoCategory: category,
+          courseVideoCategory: categoryId,
           courseVideoTitle: videoTitle,
           courseVideoWhatYouWillGet: what,
           courseVideoRequirements: req,
@@ -194,26 +205,10 @@ function EditVideo() {
           courseVideoDescription: videoDescription,
           courseVideoAboutThisCourse: about,
           courseVideoInstructorName: instructorName,
-          ...(videodata.courseVideoInstructorImage === instructorImage
-            ? {}
-            : {
-                courseVideoInstructorImage: instructorImage[0],
-              }),
-          ...(videodata.courseVideoPreview === previewVideo
-            ? {}
-            : {
-                courseVideoPreview: previewVideo[0],
-              }),
-          ...(videodata.courseVideo === fullVideo
-            ? {}
-            : {
-                courseVideo: fullVideo[0],
-              }),
-          ...(videodata.courseVideoThumbnail === videoThumbnail
-            ? {}
-            : {
-                courseVideoThumbnail: videoThumbnail[0],
-              }),
+          //   courseVideoInstructorImage: instructorImage[0],
+          //   courseVideoPreview: previewVideo[0],
+          //   courseVideo: fullVideo[0],
+          //   courseVideoThumbnail: videoThumbnail[0],
         },
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -248,12 +243,19 @@ function EditVideo() {
           <label>
             Category<span style={{ color: "red" }}>*</span>
           </label>
-          <InputBar
-            placeholder=""
-            height={"60px"}
+          <select
             value={category}
-            handleInput={(event) => setCategory(event.target.value)}
-          />
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            <option>Select Category</option>
+            {categoryData.map((item) => {
+              return (
+                <>
+                  <option key={item._id}>{item.companyBlogCategoryName}</option>
+                </>
+              );
+            })}
+          </select>
         </div>
         <div className="input-area">
           <label>
