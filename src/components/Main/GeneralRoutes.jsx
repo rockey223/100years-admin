@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Users from "../Pages/Users/Users";
 import Payments from "../Pages/Payments/Payments";
@@ -15,12 +15,28 @@ import EditBlog from "../Pages/Blog/EditBlog";
 import AddVideo from "../Pages/Level1/Video/AddVideo";
 import EditVideo from "../Pages/Level1/Video/EditVideo";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import { useProfileContext } from "../Useful/ProfileContext";
 
 function GeneralRoutes() {
+  const navigate = useNavigate();
+  const { session } = useProfileContext();
+
+  useEffect(() => {
+    if (!session) {
+      navigate("/"); // Redirect to login if not logged in
+    }
+  }, [session, navigate]);
+
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/admin" element={<Home />}>
+      <Route
+        path="/"
+        element={session ? <Navigate to="/admin" replace={true} /> : <Login />}
+      />
+      <Route
+        path="/admin"
+        element={session ? <Home /> : <Navigate to="/" replace={true} />}
+      >
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="category" element={<Category />} />
         <Route path="users" element={<Users />} />

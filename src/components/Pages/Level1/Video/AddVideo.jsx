@@ -12,6 +12,7 @@ function AddVideo() {
 
   const [category, setCategory] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
+  const [duration, setDuration] = useState("");
   const [videoThumbnail, setVideoThumbnail] = useState([]);
   const [previewVideo, setPreviewVideo] = useState([]);
   const [fullVideo, setFullVideo] = useState([]);
@@ -117,7 +118,7 @@ function AddVideo() {
           courseVideoCategory: category,
           courseVideoTitle: videoTitle,
           courseVideoPreview: previewVideo[0],
-          courseVideoDuration: "20minutes",
+          courseVideoDuration: duration,
           courseVideo: fullVideo[0],
           courseVideoThumbnail: videoThumbnail[0],
           courseVideoWhatYouWillGet: what,
@@ -178,6 +179,17 @@ function AddVideo() {
             height={"60px"}
             value={videoTitle}
             handleInput={(event) => setVideoTitle(event.target.value)}
+          />
+        </div>
+        <div className="input-area">
+          <label>
+            Duration<span style={{ color: "red" }}>*</span>
+          </label>
+          <InputBar
+            placeholder=""
+            height={"60px"}
+            value={duration}
+            handleInput={(event) => setDuration(event.target.value)}
           />
         </div>
         <div className="blog-upload-image">

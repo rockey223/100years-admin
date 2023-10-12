@@ -13,6 +13,7 @@ function EditVideo() {
   const [videodata, setVideodata] = useState([]);
   const [category, setCategory] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
+  const [duration, setDuration] = useState("");
   const [videoThumbnail, setVideoThumbnail] = useState([]);
   const [videoThumbnailURL, setVideoThumbnailURL] = useState("");
   const [previewVideo, setPreviewVideo] = useState([]);
@@ -42,6 +43,7 @@ function EditVideo() {
 
           setCategory(videoData.courseVideoCategory);
           setVideoTitle(videoData.courseVideoTitle);
+          setDuration(videoData.courseVideoDuration);
           setVideoThumbnail(videoData.courseVideoThumbnail);
           setVideoThumbnailURL(`${imageApi}/${videoData.courseVideoThumbnail}`);
           setPreviewVideo(videoData.courseVideoPreview);
@@ -188,6 +190,7 @@ function EditVideo() {
         {
           courseVideoCategory: category,
           courseVideoTitle: videoTitle,
+          courseVideoDuration: duration,
           courseVideoWhatYouWillGet: what,
           courseVideoRequirements: req,
           courseVideoWhoIsThisFor: who,
@@ -264,6 +267,17 @@ function EditVideo() {
             height={"60px"}
             value={videoTitle}
             handleInput={(event) => setVideoTitle(event.target.value)}
+          />
+        </div>
+        <div className="input-area">
+          <label>
+            Duration<span style={{ color: "red" }}>*</span>
+          </label>
+          <InputBar
+            placeholder=""
+            height={"60px"}
+            value={duration}
+            handleInput={(event) => setDuration(event.target.value)}
           />
         </div>
         <div className="blog-upload-image">
