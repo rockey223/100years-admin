@@ -74,10 +74,12 @@ function Navigation() {
             </div>
           </div>
           <div className={toggle ? "mid-nav" : "mid-nav-small"}>
-            {/* <div className="nav-link" onClick={() => setShowCourse(false)}><NavLink to="dashboard">
-                            <BiSolidDashboard />
-                            {toggle && (<span>Dashboard</span>)}
-                        </NavLink></div> */}
+            <div className="nav-link" onClick={() => setShowCourse(false)}>
+              <NavLink to="dashboard">
+                <BiSolidDashboard />
+                {toggle && <span>Dashboard</span>}
+              </NavLink>
+            </div>
             <div className="nav-link" onClick={() => setShowCourse(false)}>
               <NavLink to={"category"}>
                 <BiSolidCategory />
@@ -119,12 +121,12 @@ function Navigation() {
                     {toggle && <span>Level 1</span>}
                   </NavLink>
                 </div>
-                <div className="nav-link">
+                {/* <div className="nav-link">
                   <NavLink to={"level2"}>
                     <BiBookAlt />
                     {toggle && <span>Level 2</span>}
                   </NavLink>
-                </div>
+                </div> */}
               </>
             ) : (
               ""

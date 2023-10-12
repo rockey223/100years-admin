@@ -97,7 +97,7 @@ function Blog() {
       <ToastContainer />
       <ConfirmBox
         showC={showConfirmBox}
-        message="Are you sure"
+        message="Are you sure?"
         setShowC={setShowConfirmBox}
         buttonAction={DeleteBlog}
         buttonText="Delete"

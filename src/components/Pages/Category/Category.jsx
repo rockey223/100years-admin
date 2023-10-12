@@ -60,7 +60,6 @@ function Category() {
 
   return (
     <>
-      <ToastContainer />
       <ConfirmBox
         showC={showConfirmBox}
         setShowC={setShowConfirmBox}

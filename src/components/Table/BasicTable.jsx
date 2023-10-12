@@ -7,7 +7,6 @@ import { RiDeleteBinLine, RiEditLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 function BasicTable(props) {
-
   const { setVideoId1 } = useMainContext();
   const navigate = useNavigate();
 
@@ -20,15 +19,13 @@ function BasicTable(props) {
     tableInstance;
 
   function handleEditClick(id) {
-    if (props.activeCourse === 'Video') {
+    if (props.activeCourse === "Video") {
       setVideoId1(id);
       navigate(`/admin/level1/editvideo`);
-    }
-    else {
+    } else {
       props.editId(id);
       props.setShowEV(true);
     }
-
   }
 
   function handleDeleteClick(id) {
@@ -70,8 +67,8 @@ function BasicTable(props) {
                         cellValue === "Paid"
                           ? "statusPaid"
                           : cellValue === "Unpaid"
-                            ? "statusUnpaid"
-                            : ""
+                          ? "statusUnpaid"
+                          : ""
                       }
                     >
                       <span>{cell.render("Cell")}</span>
@@ -98,21 +95,18 @@ function BasicTable(props) {
                     >
                       <RiDeleteBinLine className="del-can" />
                     </button>
-                    {props.editFunction ? (
+                    {props.noedit ? null : (
                       <button
                         className="edit-button"
                         onClick={() => {
-                          props.editFunction();
-                          const eId = row.original._id;
-                          props.editId(eId);
+                          if (props.editFunction) {
+                            props.editFunction();
+                            const eId = row.original._id;
+                            props.editId(eId);
+                          } else {
+                            handleEditClick(row.original._id);
+                          }
                         }}
-                      >
-                        <RiEditLine className="edit-pen" />
-                      </button>
-                    ) : (
-                      <button
-                        className="edit-button"
-                        onClick={() => handleEditClick(row.original._id)}
                       >
                         <RiEditLine className="edit-pen" />
                       </button>

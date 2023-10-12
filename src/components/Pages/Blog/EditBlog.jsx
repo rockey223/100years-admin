@@ -158,22 +158,22 @@ function EditBlog() {
 
           ...(blogData.companyBlogThumbnail === blogThumbnail[0]
             ? {
-              companyBlogThumbnail: blogThumbnail[0],
-            }
-            : blogThumbnail.length > 0
-              ? {
                 companyBlogThumbnail: blogThumbnail[0],
               }
-              : {}),
+            : blogThumbnail.length > 0
+            ? {
+                companyBlogThumbnail: blogThumbnail[0],
+              }
+            : {}),
           ...(blogData.companyBlogImage === blogBanner[0]
             ? {
-              companyBlogImage: blogBanner[0],
-            }
-            : blogThumbnail.length > 0
-              ? {
                 companyBlogImage: blogBanner[0],
               }
-              : {}),
+            : blogBanner.length > 0
+            ? {
+                companyBlogImage: blogBanner[0],
+              }
+            : {}),
 
           ...(blogSubtitle1 ? { companyBlogSubtitleOne: blogSubtitle1 } : {}),
           ...(blogSubDescription1
@@ -182,13 +182,13 @@ function EditBlog() {
 
           ...(blogData.companyBlogSubtitleOneImage === blogSubImage1[0]
             ? {
-              companyBlogSubtitleOneImage: blogSubImage1[0],
-            }
-            : blogThumbnail.length > 0
-              ? {
                 companyBlogSubtitleOneImage: blogSubImage1[0],
               }
-              : {}),
+            : blogSubImage1.length > 0
+            ? {
+                companyBlogSubtitleOneImage: blogSubImage1[0],
+              }
+            : {}),
 
           ...(blogSubtitle2 ? { companyBlogSubtitleTwo: blogSubtitle2 } : {}),
           ...(blogSubDescription2
@@ -196,13 +196,13 @@ function EditBlog() {
             : {}),
           ...(blogData.companyBlogSubtitleTwoImage === blogSubImage2[0]
             ? {
-              companyBlogSubtitleTwoImage: blogSubImage2[0],
-            }
-            : blogThumbnail.length > 0
-              ? {
                 companyBlogSubtitleTwoImage: blogSubImage2[0],
               }
-              : {}),
+            : blogSubImage2.length > 0
+            ? {
+                companyBlogSubtitleTwoImage: blogSubImage2[0],
+              }
+            : {}),
         },
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -212,7 +212,7 @@ function EditBlog() {
       .then((res) => {
         ClearData();
         toast.success(`Blog Updated`);
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => console.log(err));
   }
