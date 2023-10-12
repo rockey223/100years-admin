@@ -21,6 +21,7 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 import { BsChevronDown } from "react-icons/bs";
 import axios from "axios";
 import EditProfile from "../../Useful/EditProfile/EditProfile";
+import { useProfileContext } from "../../Useful/ProfileContext";
 
 function Navigation() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function Navigation() {
   const [showCourse, setShowCourse] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
+  const { setSession } = useProfileContext();
 
   const API = `${process.env.REACT_APP_API}/api`;
 
@@ -40,6 +42,9 @@ function Navigation() {
       .get(`${API}/adminLogout`, { withCredentials: true })
       // .get(`http://localhost:4000/api/adminLogout`, { withCredentials: true })
       .then((res) => {
+        setSession(() => {
+          return false;
+        });
         navigate(`/`);
       })
       .catch((err) => console.log(err));
@@ -142,12 +147,12 @@ function Navigation() {
           </div>
         </div>
         <div className={toggle ? "bot-nav" : "bot-nav-small"}>
-          <div className="settings">
+          {/* <div className="settings">
             <button onClick={() => setShowEditProfile(true)}>
               <IoSettingsOutline className="settings-icon" />
               {toggle && <span>Settings</span>}
             </button>
-          </div>
+          </div> */}
           <div className="log-out">
             <button onClick={() => setShowConfirm(true)}>
               <RiLogoutCircleRLine className="logout-icon" />

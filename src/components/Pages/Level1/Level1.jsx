@@ -60,7 +60,7 @@ function Level1() {
 
   function DeleteCourseData() {
     axios
-      .delete(`http://localhost:4000/api/deleteCourseVideo/${deleteId}`, {
+      .delete(`${API}/deleteCourseVideo/${deleteId}`, {
         withCredentials: true,
       })
       .then((res) => {
