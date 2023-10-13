@@ -38,6 +38,7 @@ function EditBlog() {
   const [subImage1URL, setSubImage1URL] = useState("");
   const [subImage2URL, setSubImage2URL] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const API = `${process.env.REACT_APP_API}/api`;
   const imageApi = `${process.env.REACT_APP_API}/imageUploads`;
   const navigate = useNavigate();
@@ -96,37 +97,67 @@ function EditBlog() {
 
   function handleThumbnail(event) {
     const image = Array.from(event.target.files);
-    setBlogThumbnail(image);
+    const maxSize = 5242880;
 
-    const url = URL.createObjectURL(image[0]);
-    setThumbnailURL(url);
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogThumbnail(image);
+
+      const url = URL.createObjectURL(image[0]);
+      setThumbnailURL(url);
+    }
   }
 
   function handleBanner(event) {
     const image = Array.from(event.target.files);
-    setBlogBanner(image);
+    const maxSize = 5242880;
 
-    const url = URL.createObjectURL(image[0]);
-    setBannerURL(url);
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogBanner(image);
+
+      const url = URL.createObjectURL(image[0]);
+      setBannerURL(url);
+    }
   }
 
   function handleImage1(event) {
     const image = Array.from(event.target.files);
-    setBlogSubImage1(image);
+    const maxSize = 5242880;
 
-    const url = URL.createObjectURL(image[0]);
-    setSubImage1URL(url);
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogSubImage1(image);
+
+      const url = URL.createObjectURL(image[0]);
+      setSubImage1URL(url);
+    }
   }
 
   function handleImage2(event) {
     const image = Array.from(event.target.files);
-    setBlogSubImage2(image);
+    const maxSize = 5242880;
 
-    const url = URL.createObjectURL(image[0]);
-    setSubImage2URL(url);
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogSubImage2(image);
+
+      const url = URL.createObjectURL(image[0]);
+      setSubImage2URL(url);
+    }
   }
 
   function handleSubmit() {
+    setLoading(true);
+
     if (
       !blogCategory ||
       !blogTitle ||
@@ -135,6 +166,7 @@ function EditBlog() {
       !blogDescription
     ) {
       toast.error("Please fill in all required fields *");
+      setLoading(false);
       return;
     }
 
@@ -210,9 +242,8 @@ function EditBlog() {
         }
       )
       .then((res) => {
-        ClearData();
+        setLoading(false);
         toast.success(`Blog Updated`);
-        console.log(res);
       })
       .catch((err) => console.log(err));
   }
@@ -234,7 +265,7 @@ function EditBlog() {
     setBannerURL("");
     setSubImage1URL("");
     setSubImage2URL("");
-
+    setLoading(false);
     navigate(`/admin/blog`);
   }
 
@@ -260,7 +291,7 @@ function EditBlog() {
             }
             onChange={(event) => setBlogCategory(event.target.value)}
           >
-            <option>Select Category</option>
+            <option value={""}>Select Category</option>
             {category.map((item) => {
               return (
                 <>
@@ -588,9 +619,18 @@ function EditBlog() {
           </>
         )}
         <div className="bottom-buttons">
-          <div className="save-button" onClick={handleSubmit}>
-            Save
-          </div>
+          <button
+            className="save-button"
+            onClick={handleSubmit}
+            disabled={loading}
+            style={
+              loading
+                ? { backgroundColor: "gray" }
+                : { backgroundColor: "#2daa50" }
+            }
+          >
+            {loading ? "Loading..." : "Save"}
+          </button>
           <div className="cancel-button" onClick={ClearData}>
             Cancel
           </div>

@@ -29,6 +29,7 @@ function EditVideo() {
   const [instructorImage, setInstructorImage] = useState([]);
   const [instructorImageURL, setInstructorImageURL] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const API = `${process.env.REACT_APP_API}/api`;
   const imageApi = `${process.env.REACT_APP_API}/mediaUploads`;
   const navigate = useNavigate();
@@ -116,10 +117,10 @@ function EditVideo() {
   function handleThumbnail(event) {
     const image = Array.from(event.target.files);
 
-    const maxSize = 104857600;
+    const maxSize = 5242880;
 
     if (image[0].size > maxSize) {
-      toast.error(`Max file size: 100MB!`);
+      toast.error(`Max file size: 5MB!`);
       event.target.value = null;
     } else {
       setVideoThumbnail(image);
@@ -147,13 +148,22 @@ function EditVideo() {
 
   function handleInstructorImage(event) {
     const image = Array.from(event.target.files);
-    setInstructorImage(image);
+    const maxSize = 5242880;
 
-    const url = URL.createObjectURL(image[0]);
-    setInstructorImageURL(url);
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setInstructorImage(image);
+
+      const url = URL.createObjectURL(image[0]);
+      setInstructorImageURL(url);
+    }
   }
 
   function handleSubmit() {
+    setLoading(true);
+
     const what = whatGet.map((item) => {
       return item.value;
     });
@@ -181,6 +191,7 @@ function EditVideo() {
       !about
     ) {
       toast.error(`Please fill in all required fields`);
+      setLoading(false);
       return;
     }
 
@@ -225,12 +236,14 @@ function EditVideo() {
       )
       .then((res) => {
         toast.success("Video Updated Successfully");
+        setLoading(false);
         ClearData();
       })
       .catch((err) => console.log(err));
   }
 
   function ClearData() {
+    setLoading(false);
     navigate(`/admin/level1`);
   }
 
@@ -304,7 +317,7 @@ function EditVideo() {
                     File Supported: png, jpg, jpeg.
                   </span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
+                  <span className="input-text">Maximum size: 5mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -340,7 +353,6 @@ function EditVideo() {
                   <span className="input-text">Drag & drop files here</span>
                   <span className="input-text">File Supported: mp4.</span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -384,7 +396,6 @@ function EditVideo() {
                   <span className="input-text">Drag & drop files here</span>
                   <span className="input-text">File Supported: mp4.</span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -613,7 +624,7 @@ function EditVideo() {
                     File Supported: jpg, jpeg, png.
                   </span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
+                  <span className="input-text">Maximum size: 5mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -636,9 +647,18 @@ function EditVideo() {
           </div>
         </div>
         <div className="bottom-buttons for-video-bottom">
-          <div className="save-button" onClick={handleSubmit}>
-            Save
-          </div>
+          <button
+            className="save-button"
+            onClick={handleSubmit}
+            disabled={loading}
+            style={
+              loading
+                ? { backgroundColor: "gray" }
+                : { backgroundColor: "#2daa50" }
+            }
+          >
+            {loading ? "Loading..." : "Save"}
+          </button>
           <div className="cancel-button" onClick={ClearData}>
             Cancel
           </div>
