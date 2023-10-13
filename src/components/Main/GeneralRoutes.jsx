@@ -31,7 +31,13 @@ function GeneralRoutes() {
     <Routes>
       <Route
         path="/"
-        element={session ? <Navigate to="/admin" replace={true} /> : <Login />}
+        element={
+          session ? (
+            <Navigate to="/admin/dashboard" replace={true} />
+          ) : (
+            <Login />
+          )
+        }
       />
       <Route
         path="/admin"

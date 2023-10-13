@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function AddBlog() {
   const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   //Show Subtitle & Image Section
   const [showSubtitle1, setShowSubtitle1] = useState(false);
@@ -43,25 +44,55 @@ function AddBlog() {
 
   function handleThumbnail(event) {
     const image = Array.from(event.target.files);
-    setBlogThumbnail(image);
+    const maxSize = 5242880;
+
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogThumbnail(image);
+    }
   }
 
   function handleBanner(event) {
     const image = Array.from(event.target.files);
-    setBlogBanner(image);
+    const maxSize = 5242880;
+
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogBanner(image);
+    }
   }
 
   function handleImage1(event) {
     const image = Array.from(event.target.files);
-    setBlogSubImage1(image);
+    const maxSize = 5242880;
+
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogSubImage1(image);
+    }
   }
 
   function handleImage2(event) {
     const image = Array.from(event.target.files);
-    setBlogSubImage2(image);
+    const maxSize = 5242880;
+
+    if (image[0].size > maxSize) {
+      toast.error(`Max file size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setBlogSubImage2(image);
+    }
   }
 
   function handleSubmit() {
+    setLoading(true);
+
     if (
       !blogCategory ||
       !blogTitle ||
@@ -70,6 +101,7 @@ function AddBlog() {
       !blogDescription
     ) {
       toast.error("Please fill in all required fields *");
+      setLoading(false);
       return;
     }
 
@@ -108,6 +140,7 @@ function AddBlog() {
       )
       .then((res) => {
         ClearData();
+        setLoading(false);
         toast.success(`Blog Added`);
       })
       .catch((err) => console.log(err));
@@ -125,6 +158,7 @@ function AddBlog() {
     setBlogSubtitle2("");
     setBlogSubDescription2("");
     setBlogSubImage2([]);
+    setLoading(false);
 
     navigate(`/admin/blog`);
   }
@@ -146,7 +180,7 @@ function AddBlog() {
             value={blogCategory}
             onChange={(event) => setBlogCategory(event.target.value)}
           >
-            <option>Select Category</option>
+            <option value={""}>Select Category</option>
             {category.map((item) => {
               return (
                 <>
@@ -476,9 +510,18 @@ function AddBlog() {
           </>
         )}
         <div className="bottom-buttons">
-          <div className="save-button" onClick={handleSubmit}>
-            Save
-          </div>
+          <button
+            className="save-button"
+            onClick={handleSubmit}
+            disabled={loading}
+            style={
+              loading
+                ? { backgroundColor: "gray" }
+                : { backgroundColor: "#2daa50" }
+            }
+          >
+            {loading ? "Loading..." : "Save"}
+          </button>
           <div className="cancel-button" onClick={ClearData}>
             Cancel
           </div>

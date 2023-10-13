@@ -57,7 +57,13 @@ function AddVideo() {
 
   function handleThumbnail(event) {
     const image = Array.from(event.target.files);
-    setVideoThumbnail(image);
+    const maxSize = 5242880;
+    if (image[0].size > maxSize) {
+      toast.error(`Max Image Size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setVideoThumbnail(image);
+    }
   }
 
   function handlePreview(event) {
@@ -73,7 +79,13 @@ function AddVideo() {
 
   function handleInstructorImage(event) {
     const image = Array.from(event.target.files);
-    setInstructorImage(image);
+    const maxSize = 5242880;
+    if (image[0].size > maxSize) {
+      toast.error(`Max Image Size: 5MB!`);
+      event.target.value = null;
+    } else {
+      setInstructorImage(image);
+    }
   }
 
   function handleSubmit() {
@@ -216,7 +228,7 @@ function AddVideo() {
                     File Supported: png, jpg, jpeg.
                   </span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
+                  <span className="input-text">Maximum size: 5mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -251,7 +263,6 @@ function AddVideo() {
                   <span className="input-text">Drag & drop files here</span>
                   <span className="input-text">File Supported: mp4.</span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -297,7 +308,6 @@ function AddVideo() {
                   <span className="input-text">Drag & drop files here</span>
                   <span className="input-text">File Supported: mp4.</span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -528,7 +538,7 @@ function AddVideo() {
                     File Supported: jpg, jpeg, png.
                   </span>
                   <span className="image-input-btn">Browse Files</span>
-                  <span className="input-text">Maximum size: 500mb</span>
+                  <span className="input-text">Maximum size: 5mb</span>
                 </div>
               ) : (
                 <div className="image-uploaded">
@@ -550,9 +560,18 @@ function AddVideo() {
           </div>
         </div>
         <div className="bottom-buttons for-video-bottom">
-          <div className="save-button" onClick={handleSubmit}>
+          <button
+            className="save-button"
+            onClick={handleSubmit}
+            disabled={submitLoading}
+            style={
+              submitLoading
+                ? { backgroundColor: "gray" }
+                : { backgroundColor: "#2daa50" }
+            }
+          >
             {submitLoading ? "Loading..." : "Save"}
-          </div>
+          </button>
           <div className="cancel-button" onClick={ClearData}>
             Cancel
           </div>

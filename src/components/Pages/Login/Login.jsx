@@ -5,9 +5,11 @@ import logo from "../../../Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useProfileContext } from "../../Useful/ProfileContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState({
     adminEmail: "",
     adminPassword: "",
@@ -26,11 +28,29 @@ function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
+    if (!login.adminEmail && !login.adminPassword) {
+      toast.error(`Email Field Empty! `);
+      toast.error(`Password Field Empty! `);
+      setLoading(false);
+      return;
+    }
+    if (!login.adminEmail) {
+      toast.error(`Email Field Empty! `);
+      setLoading(false);
+      return;
+    }
+    if (!login.adminPassword) {
+      toast.error(`Password Field Empty! `);
+      setLoading(false);
+      return;
+    }
     axios
       .post(`${API}/adminLogin`, login, { withCredentials: true })
       // .post(`http://localhost:4000/api/adminLogin`, login, { withCredentials: true })
       .then((res) => {
         if (res.data.success === true) {
+          toast.success(`Login Successfull`);
           setSession(() => {
             return true;
           });
@@ -38,10 +58,14 @@ function Login() {
             adminEmail: "",
             adminPassword: "",
           });
-          navigate(`/admin`);
+          setLoading(false);
+          navigate(`/admin/dashboard`);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err.response.data.message);
+        setLoading(false);
+      });
   }
 
   return (
@@ -70,7 +94,17 @@ function Login() {
                   />
                 </div>
                 <div className="login-button">
-                  <input type="submit" value="Login" onClick={handleSubmit} />
+                  <input
+                    type="submit"
+                    value={loading ? "Loading..." : "Login"}
+                    style={{
+                      backgroundColor: loading
+                        ? "gray"
+                        : "var(--orange, #F66E24)",
+                      cursor: loading ? "not-allowed" : "pointer",
+                    }}
+                    onClick={handleSubmit}
+                  />
                 </div>
                 <div className="form-bottom">
                   <div className="forgot-password">Forgot Password?</div>
